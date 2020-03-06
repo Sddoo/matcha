@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+  node_server:
+    build:
+      context: ./dockerfiles/node
+    container_name: node
+    working_dir: /matcha
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./public:/matcha/public
+      - ./package.json:/matcha/package.json
