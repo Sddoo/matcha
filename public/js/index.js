@@ -1,1 +1,3 @@
-console.log("hrrhr");
+$(document).click(function(){
+    $( "#toggle" ).toggle( "slide" );
+});
