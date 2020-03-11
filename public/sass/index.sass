@@ -8,19 +8,27 @@ $third_color: #FF9500
   &::-webkit-input-placeholder
     text-align: center
     color: $color
+    opacity: 0.7
   &:-moz-placeholder
     text-align: center
     color: $color
+    opacity: 0.7
   &::-moz-placeholder
     text-align: center
     color: $color
+    opacity: 0.7
   &:-ms-input-placeholder
     text-align: center
     color: $color
+    opacity: 0.7
 
 %hover_font
   cursor: pointer
   color: aqua
+
+%borders
+  border: 1px solid $third_color
+  border-radius: 5px
 
 body
   margin: 0
@@ -31,6 +39,7 @@ body
 
 a
   text-decoration: none
+  cursor: pointer
   color: $third_color
 
 #toggle_main
@@ -45,14 +54,13 @@ a
   padding: 0
   width: 80%
   height: 100vh
-  grid-template-columns: repeat(4, minmax(400px, 25%))
+  grid-template-columns: repeat(4, minmax(250px, 25%))
   grid-template-rows: repeat(20, minmax(50px, 5%))
 
 //  <row-start> / <column-start> / <row-end> / <column-end>;
 .grid_item:nth-child(1)
+  @extend %borders
   grid-area: 5 / 1 / 10 / 2
-  border: 1px solid $third_color
-  border-radius: 5px
 
 
 .grid_item:nth-child(2)
@@ -63,7 +71,6 @@ a
   height: 100%
   object-fit: cover
 
-
 // form
 form
   width: 100%
@@ -71,16 +78,16 @@ form
   text-align: center
   input
     @include placeholder($third_color)
+    @extend %borders
     background-color: $secondary_color
     width: 70%
     height: 20px
     margin: 10px auto
-    border-radius: 5px
-    color: $third_color
-    border: 1px solid $third_color
-  input
+    color: $main_color
     &[type="submit"]
       width: 15%
+    &:focus
+      outline: none
 
 .register_link:hover, .forgot_pass:hover
   @extend %hover_font
@@ -94,11 +101,41 @@ form
   height: 100vh
 
 .register_wrap
+  position: relative
   margin: 25vh auto
-  width: 30%
+  width: 40%
+
+.register_wrap > form
+  display: inline-block
+  width: 50%
+  input
+    width: 100%
+  input
+    &[type="submit"]
+      width: 15%
+
+.register_popup
+  @extend %borders
+  position: absolute
+  right: 0
+  width: 20%
+  min-height: 20px
+  max-height: 60px
+  margin: 0 10px
+
+//.register_input
+//  &:focus
+//    & + .register_popup
+//      display: block
 
 .login_link:hover
   @extend %hover_font
+  width: 100%
+
+//  reinit pass popup
+.reinit_pass_popup_wrap
+  display: none
+
 
 
 

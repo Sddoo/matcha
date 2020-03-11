@@ -16,6 +16,11 @@ header div {
   color: aqua;
 }
 
+.register_popup, form input, .grid_item:nth-child(1) {
+  border: 1px solid #FF9500;
+  border-radius: 5px;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -26,6 +31,7 @@ body {
 
 a {
   text-decoration: none;
+  cursor: pointer;
   color: #FF9500;
 }
 
@@ -42,14 +48,12 @@ a {
   padding: 0;
   width: 80%;
   height: 100vh;
-  grid-template-columns: repeat(4, minmax(400px, 25%));
+  grid-template-columns: repeat(4, minmax(250px, 25%));
   grid-template-rows: repeat(20, minmax(50px, 5%));
 }
 
 .grid_item:nth-child(1) {
   grid-area: 5/1/10/2;
-  border: 1px solid #FF9500;
-  border-radius: 5px;
 }
 
 .grid_item:nth-child(2) {
@@ -72,28 +76,33 @@ form input {
   width: 70%;
   height: 20px;
   margin: 10px auto;
-  border-radius: 5px;
-  color: #FF9500;
-  border: 1px solid #FF9500;
+  color: black;
 }
 form input::-webkit-input-placeholder {
   text-align: center;
   color: #FF9500;
+  opacity: 0.7;
 }
 form input:-moz-placeholder {
   text-align: center;
   color: #FF9500;
+  opacity: 0.7;
 }
 form input::-moz-placeholder {
   text-align: center;
   color: #FF9500;
+  opacity: 0.7;
 }
 form input:-ms-input-placeholder {
   text-align: center;
   color: #FF9500;
+  opacity: 0.7;
 }
 form input[type=submit] {
   width: 15%;
+}
+form input:focus {
+  outline: none;
 }
 
 #toggle_register {
@@ -105,8 +114,37 @@ form input[type=submit] {
 }
 
 .register_wrap {
+  position: relative;
   margin: 25vh auto;
-  width: 30%;
+  width: 40%;
+}
+
+.register_wrap > form {
+  display: inline-block;
+  width: 50%;
+}
+.register_wrap > form input {
+  width: 100%;
+}
+.register_wrap > form input[type=submit] {
+  width: 15%;
+}
+
+.register_popup {
+  position: absolute;
+  right: 0;
+  width: 20%;
+  min-height: 20px;
+  max-height: 60px;
+  margin: 0 10px;
+}
+
+.login_link:hover {
+  width: 100%;
+}
+
+.reinit_pass_popup_wrap {
+  display: none;
 }
 
 /*# sourceMappingURL=index.css.map */

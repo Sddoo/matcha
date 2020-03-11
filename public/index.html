@@ -19,9 +19,9 @@
         <div class="grid_container">
             <div class="grid_item">
                 <h2>Log in</h2>
-                <form action="" method="post">
-                    <input type="text" name="login" placeholder="Write your login here"> <br>
-                    <input type="password" name="password" placeholder="Write your password here"> <br>
+                <form action="" method="post" autocomplete="off">
+                    <input type="text" name="login" placeholder="Write your login here" maxlength="32"> <br>
+                    <input type="password" name="password" placeholder="Write your password here" maxlength="32"> <br>
                     <input type="submit" name="submit" value="OK">
                 </form>
                 <div class="register_link">Register</div>
@@ -36,13 +36,25 @@
     <!--login form-->
     <div id="toggle_register">
         <div class="register_wrap">
-            <form action="" method="post">
-                <input id="register_input_login" type="text" name="login" placeholder="Write your login here"> <br>
-                <input id="register_input_pass" type="password" name="password" placeholder="Write your password here"> <br>
-                <input id="register_input_email" type="email" name="email" placeholder="Write your email here"> <br>
+            <form action="" method="post" autocomplete="off">
+                <input class="register_input" id="register_input_login" type="text" name="login" placeholder="Write your login here"> <br>
+                <input class="register_input" id="register_input_pass" type="password" name="password" placeholder="Write your password here"> <br>
+                <input class="register_input" id="register_input_email" type="email" name="email" placeholder="Write your email here"> <br>
                 <input type="submit" name="submit" value="OK">
+                <div class="login_link">Back to login</div>
             </form>
-            <div class="login_link">Back to login</div>
+            <div class="register_popup"></div>
+        </div>
+    </div>
+
+    <!--reinit pass form-->
+    <div class="reinit_pass_popup_wrap">
+        <div class="reinit_pass_popup">
+            <form action="" method="post">
+                We will send recovery message to your email:
+                <input type="email" name="email" id="">
+                <input type="submit" value="Ok">
+            </form>
         </div>
     </div>
 
