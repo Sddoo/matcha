@@ -8,6 +8,8 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.16.1"
+    "express": "^4.16.1",
+    "sass": "^1.26.3",
+    "webpack": "^4.42.1"
   }
 }

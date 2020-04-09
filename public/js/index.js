@@ -1,19 +1,37 @@
-$(".register_link").click(function(){
-    // setTimeout(() => {$("#toggle_main").css({'display': 'none'})}, 500);
-    // $("#toggle_register").css({'display': 'block'});
-    $("#toggle_main").animate({left: '-=' + window.innerWidth + 'px'},500);
-    $("#toggle_register").animate({left: '-=' + window.innerWidth + 'px'},500);
-});
+setTimeout(function() {
+    $(".site-welcome__register").click(function(){
+        $(".site-welcome").slideToggle(400, 'linear');
+        $('.register-form').parent().slideToggle(400, 'linear');
+    });
 
-$(".login_link").click(function(){
-    // setTimeout(() => {$("#toggle_register").css({'display': 'none'})}, 500);
-    // $("#toggle_main").css({'display': 'block'});
-    $("#toggle_main").animate({left: '+=' + window.innerWidth + 'px'},500);
-    $("#toggle_register").animate({left: '+=' + window.innerWidth + 'px'},500);
-});
+    $(".site-welcome__login").click(function(){
+        $(".site-welcome").slideToggle(400, 'linear');
+        $('.login-form').parent().slideToggle(400, 'linear');
+    });
+
+    $(".login-form__recovery-button").click(function(){
+        $('.login-form').parent().slideUp(400, 'linear');
+        $('.recovery-form').parent().slideDown(400, 'linear');
+    });
+
+    $(".header__logo").on('click', function(){
+        $(".site-welcome").slideDown(400, 'linear');
+        $('.register-form').parent().slideUp(400, 'linear');
+        $('.login-form').parent().slideUp(400, 'linear');
+        $('.recovery-form').parent().slideUp(400, 'linear');
+    });
+
+    $(".button_back").click(function(){
+        $(".site-welcome").slideDown(400, 'linear');
+        $('.register-form').parent().slideUp(400, 'linear');
+        $('.login-form').parent().slideUp(400, 'linear');
+        $('.recovery-form').parent().slideUp(400, 'linear');
+    });
+}, 200);
 
 function validLogin(login) {
     let requiredContent = /^[\w]{8,32}$/;   // check if pass exists more than 8 characters
+
     if (login.match(requiredContent) === null)
         return ("Your login should contain not less 8 symbols.");
     else
@@ -38,45 +56,22 @@ function validEmail(email) {
         return ("Ok");
 }
 
-$("#register_input_login").focusout(() => {
+function validate(callback, validationField) {
     let regPop = $(".register_popup");
-    let regInp = $("#register_input_login");
+    let regInp = $(validationField);
 
     if (regInp[0].value === "")
         return;
-    regPop[0].innerHTML = validLogin(regInp[0].value);
-    regPop[0].style = 'top: ' + (regInp[0].offsetTop + parseInt(regInp.css('height')) / 2 - parseInt(regPop.css('height')) / 2) + 'px;';
+    regPop[0].innerHTML = callback(regInp[0].value);
+    regPop[0].style = 'top: ' + (regInp[0].offsetTop + parseInt(regInp.css('height')) / 2
+                                - parseInt(regPop.css('height')) / 2) + 'px;';
     if (regPop[0].innerHTML === 'Ok')
         regInp[0].style = 'border-color: green';
     else
         regInp[0].style = 'border-color: red';
-});
+}
 
-$("#register_input_pass").focusout(() => {
-    let regPop = $(".register_popup");
-    let regInp = $("#register_input_pass");
-
-    if (regInp[0].value === "")
-        return;
-    regPop[0].innerHTML = validPass(regInp[0].value);
-    regPop[0].style = 'top: ' + (regInp[0].offsetTop + parseInt(regInp.css('height')) / 2 - parseInt(regPop.css('height')) / 2) + 'px;';
-    if (regPop[0].innerHTML === 'Ok')
-        regInp[0].style = 'border-color: green';
-    else
-        regInp[0].style = 'border-color: red';
-});
-
-$("#register_input_email").focusout(() => {
-    let regPop = $(".register_popup");
-    let regInp = $("#register_input_email");
-
-    if (regInp[0].value === "")
-        return;
-    regPop[0].innerHTML = validEmail(regInp[0].value);
-    regPop[0].style = 'top: ' + (regInp[0].offsetTop + parseInt(regInp.css('height')) / 2 - parseInt(regPop.css('height')) / 2) + 'px;';
-    if (regPop[0].innerHTML === 'Ok')
-        regInp[0].style = 'border-color: green';
-    else
-        regInp[0].style = 'border-color: red';
-});
+$("#register_input_login").focusout(function () { validate(validLogin, this) });
+$("#register_input_pass").focusout(function () { validate(validPass, this) });
+$("#register_input_email").focusout(function () { validate(validEmail, this) });
 

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="../css/profile_filling.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<title>Document</title>
+</head>
+<body>
+
+	<!--main-->
+	<main class="main">
+		<div class="main__inner form main__inner_width-90">
+			<form action="" method="POST" class="profile-form">
+				<div class="form__inner">
+					<div class="profile-form__field">
+						<h1 class="header-1-level">Fill your profile form</h1>
+					</div>
+					<div class="flex profile-form__field">
+						<h2 class="header-2-level profile-form__header flex__item_align-start">Choose your gender</h2>
+						<label class="radio profile-form__col">
+							<input type="radio" class="radio__input" name="gender" value="male">
+							<img class="radio__image" src="../assets/male.svg" alt="">
+						</label>
+						<label class="radio profile-form__col">
+							<input type="radio" class="radio__input" name="gender" value="transgender">
+							<img class="radio__image" src="../assets/transgender.svg" alt="">
+						</label>
+						<label class="radio profile-form__col">
+							<input type="radio" class="radio__input" name="gender" value="female">
+							<img class="radio__image" src="../assets/female.svg" alt="">
+						</label>
+					</div>
+					<div class="flex profile-form__field">
+						<h2 class="header-2-level flex__item_align-start">Choose your sexual preferences</h2>
+						<label class="radio profile-form__col">
+							<input type="radio" class="radio__input" name="sexual_preferences" value="heterosexual">
+							<img class="radio__image" src="../assets/heterosexual.svg" alt="">
+						</label>
+						<label class="radio profile-form__col">
+							<input type="radio" class="radio__input" name="sexual_preferences" value="homosexual">
+							<img class="radio__image" src="../assets/lesbians.svg" alt="">
+						</label>
+						<label class="radio profile-form__col">
+							<input type="radio" class="radio__input" name="sexual_preferences" value="bisexual">
+							<img class="radio__image" src="../assets/bisexual.svg" alt="">
+						</label>
+					</div>
+					<div class="profile-form__field profile-form__field_size-60">
+						<h2 class="header-2-level">Last steps of profile filling</h2>
+						<h3 class="header-3-level">Tell us about yourself</h3>
+						<textarea class="text-input form__text-input form__text-input_size-m" name="biography"></textarea>
+						<h3 class="header-3-level">List your interests through comma and in a word</h3>
+						<input type="text" class="text-input form__text-input" name="tag">
+						<h3 class="header-3-level">Download your profile image</h3>
+						<input type="file" class="text-input form__file-input" name="image">
+						<button type="submit" name="submit_button" class="button form__button button_send"> Send </button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</main>
+
+</body>
+<script src="../js/other.js"></script>
+</html>

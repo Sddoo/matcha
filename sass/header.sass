@@ -1,0 +1,47 @@
+@import "https://fonts.googleapis.com/css?family=Amatic+SC&display=swap"
+@import 'settings.sass'
+
+.header
+  font-size: 2em
+  color: $color_1
+  background-color: $color_4
+  font-family: 'Amatic SC', sans-serif
+  &__inner
+    display: grid
+    grid-template-rows: $header_height
+    grid-template-columns: repeat(7, 1fr)
+    width: 90%
+    height: $header_height
+    margin: auto
+  &__logo
+    grid-area: 1 / 1 / 1 / 1
+    &:hover
+      cursor: pointer
+  &__menu
+    grid-area: 1 / 6 / 1 / 8
+    height: 100%
+
+
+//  menu
+
+.menu
+  display: flex
+  flex-direction: row
+  justify-content: space-around
+  align-items: center
+  font-size: 1em
+  &__item
+    cursor: pointer
+    padding: 0 10px
+    line-height: $header_height
+    height: 100%
+    &:hover
+      background-color: $color_2
+
+
+//  link
+
+.link
+  &, &:link, &:hover, &:visited, &:active
+    text-decoration: none
+    color: white

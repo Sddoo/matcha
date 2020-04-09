@@ -1,17 +1,77 @@
-header {
-  position: fixed;
-  z-index: 1;
-  width: 100%;
+@import "https://fonts.googleapis.com/css?family=Amatic+SC&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Montserrat&display=swap";
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 15pt;
+  font-family: "Montserrat", sans-serif;
 }
 
-header div {
-  width: 50%;
+.header-wrap, footer-wrap {
+  position: sticky;
+  top: 0;
+}
+
+.button {
+  background-color: #281D57;
+  color: white;
+  border: 0;
+  cursor: pointer;
+  font-size: 15pt;
+  font-weight: 100;
+  letter-spacing: 1px;
+}
+
+.button:focus {
+  outline: 0;
+  cursor: pointer;
+}
+
+.header {
+  font-size: 2em;
+  color: white;
+  background-color: #16424F;
+  font-family: "Amatic SC", sans-serif;
+}
+.header__inner {
+  display: grid;
+  grid-template-rows: 50px;
+  grid-template-columns: repeat(7, 1fr);
+  width: 90%;
+  height: 50px;
   margin: auto;
-  text-align: center;
-  font-size: 40pt;
-  color: #FF9500;
+}
+.header__logo {
+  grid-area: 1/1/1/1;
+}
+.header__logo:hover {
+  cursor: pointer;
+}
+.header__menu {
+  grid-area: 1/6/1/8;
+  height: 100%;
 }
 
-/*# sourceMappingURL=header.css.map */
+.menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 1em;
+}
+.menu__item {
+  cursor: pointer;
+  padding: 0 10px;
+  line-height: 50px;
+  height: 100%;
+}
+.menu__item:hover {
+  background-color: #1C2C55;
+}
+
+.link, .link:link, .link:hover, .link:visited, .link:active {
+  text-decoration: none;
+  color: white;
+}
 
 /*# sourceMappingURL=header.css.map */

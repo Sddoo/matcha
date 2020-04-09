@@ -1,0 +1,131 @@
+@import 'settings.sass'
+@import 'header.sass'
+@import 'footer.sass'
+
+
+//  main
+
+.main
+  &__inner
+    padding: 6% 0 0 0
+    margin: auto
+    width: 70%
+    min-width: 500px
+    &_width-50
+      width: 50%
+    &_width-90
+      width: 90%
+    &_padding-3
+      padding: 3% 0 0 0
+  &__elem
+    width: 100%
+    &_width-50
+      width: 50%
+    &_width-90
+      width: 90%
+
+
+//  form
+
+.form
+  height: inherit
+  text-align: center
+  font-size: 1em
+  &__inner
+    width: 100%
+    min-width: 150px
+    margin: auto
+    &_width-75
+      width: 75%
+    &_width-50
+      width: 50%
+  &__text-input
+    height: 40px
+    width: 100%
+    margin: 5px 0 15px 0
+    padding: 0
+    &_size-m
+      height: 100px
+  &__file-input
+    margin: auto
+  &__button
+    min-width: 10%
+    max-width: 100%
+    height: 40px
+    margin-top: 3%
+  &_hidden
+    display: none
+
+
+//  profile form
+
+.profile-form
+  &__field
+    width: 100%
+    height: 100vh
+    margin: auto
+    &_size-60
+      width: 60%
+    &_height-auto
+      height: auto
+  &__col
+    width: 30%
+    height: auto
+
+
+//  flex
+
+.flex
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  justify-content: space-between
+  align-items: baseline
+  &__item_align-start
+    flex-basis: 100%
+    align-self: start
+
+
+//  radio
+
+.radio
+  cursor: pointer
+  &__input
+    position: absolute
+    opacity: 0
+    width: 0
+    height: 0
+    &:checked + .radio__image
+      outline: 2px solid #f00
+  &__image
+    padding: 5px
+    max-width: 100%
+    max-height: 100%
+
+
+//  text-input
+
+.text-input
+  display: block
+  font-size: inherit
+
+
+//  button
+
+.button
+  display: inline-block
+
+
+//  headers
+
+.header-1-level
+  font-size: 1.5em
+
+.header-2-level
+  font-size: 1.2em
+
+.header-3-level
+  font-size: 1.1em
+  margin: 15px 0
+
+

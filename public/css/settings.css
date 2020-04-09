@@ -1,0 +1,29 @@
+@import "https://fonts.googleapis.com/css2?family=Montserrat&display=swap";
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 15pt;
+  font-family: "Montserrat", sans-serif;
+}
+
+.header-wrap, footer-wrap {
+  position: sticky;
+  top: 0;
+}
+
+.button {
+  background-color: #281D57;
+  color: white;
+  border: 0;
+  cursor: pointer;
+  font-size: 15pt;
+  font-weight: 100;
+  letter-spacing: 1px;
+}
+
+.button:focus {
+  outline: 0;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=settings.css.map */
