@@ -115,7 +115,7 @@ body {
   width: 90%;
 }
 .main__inner_padding-3 {
-  padding: 3% 0 0 0;
+  padding: 3% 0 3% 0;
 }
 .main__elem {
   width: 100%;
@@ -132,24 +132,60 @@ body {
   flex-direction: row;
 }
 .profile__image-wrap {
-  max-width: 50%;
+  width: 30%;
   margin-right: 3%;
-  height: 85vh;
 }
 .profile__image_main {
-  width: auto;
+  width: 100%;
   height: auto;
-  max-width: 100%;
-  max-height: 90%;
   margin: auto;
+}
+.profile__image_list {
+  padding: 3px;
+  max-width: 100%;
+  max-height: 100%;
 }
 .profile__image-list {
   display: flex;
   flex-direction: row;
   justify-content: center;
   background-color: black;
-  height: 10%;
-  width: auto;
+  height: 7vh;
+  width: 100%;
+}
+.profile__actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.radio {
+  cursor: pointer;
+}
+.radio__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+.radio__input:checked + .radio__image {
+  outline: 2px solid #f00;
+}
+.radio__image {
+  padding: 5px;
+  max-height: 100%;
+  max-width: 100%;
+}
+.radio__image_padding-none {
+  padding: initial;
+  margin: 0 2px;
+}
+
+.user-status {
+  font-size: 0.5em;
+  color: #aaa;
 }
 
 .header-1-level {

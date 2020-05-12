@@ -10,21 +10,19 @@
     padding: 6% 0 0 0
     margin: auto
     width: 70%
-    height: 2000px
     min-width: 500px
     &_width-50
       width: 50%
     &_width-90
       width: 90%
     &_padding-3
-      padding: 3% 0 0 0
+      padding: 3% 0 3% 0
   &__elem
     width: 100%
     &_width-50
       width: 50%
     &_width-90
       width: 90%
-
 
 
 //  form
@@ -69,6 +67,9 @@
 
 .button
   display: inline-block
+  &_adv-search
+    background-color: $color_1
+    color: $color_2
 
 
 //  search page
@@ -76,11 +77,12 @@
 .search-page
   display: grid
   grid-template-columns: repeat(4, 1fr)
-  grid-template-rows: 200px
+  grid-template-rows: auto 1fr
   grid-column-gap: 20px
   grid-row-gap: 40px
   &__form
     grid-column: 2 / 4
+    text-align: center
   &__content
     grid-column: 1 / 4
   &__setup
@@ -101,6 +103,11 @@
     padding: 10px
   &__row
     width: 100%
+  &__option
+    cursor: pointer
+    &:hover
+      background-color: $color_1
+      color: $color_2
 
 
 //  profile preview
@@ -108,22 +115,24 @@
 .profile-preview
   &__inner
     display: grid
-    grid-template-columns: 300px auto
-    grid-template-rows: 300px
-    grid-template-areas: "image info"
+    grid-template-columns: min-content auto
+    grid-template-rows: auto
     grid-column-gap: 1%
     margin: 20px auto
-  &__image-wrap
-    grid-area: image
   &__image
-    height: 100%
-    width: 100%
+    height: 300px
+    width: 300px
+    &_resize-100
+      height: 100px
+      width: 100px
   &__info
     display: grid
     grid-template-columns: repeat(4, 1fr)
     grid-template-rows: 1fr 2fr
-    grid-area: info
     text-align: center
+    &_size-s
+      text-align: left
+      font-size: 0.7em
   &__block
     &_full-width
       grid-column: 1 / 5

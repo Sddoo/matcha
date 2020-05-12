@@ -17,11 +17,24 @@
 	<!--main-->
 	<main class="main">
 		<div class="search-page main__inner main__inner_width-90">
-			<div class="search-page__form form">
-				<div class="form__inner">
-					<h1 class="header-1-level">Search your LOVE</h1>
-					<input type="text" class="text-input form__text-input">
-					<button class="button">SEARCH</button>
+			<div class="search-page__form">
+				<h1 class="header-1-level">Here is list of suggestions</h1>
+				<div class="form form_hidden">
+					<div class="form__inner">
+						<div action="" class="search-form">
+							<h2 class="header-2-level">Search your LOVE</h2>
+							<label for="age">Age</label>
+							<input type="text" id="age" class="text-input form__text-input">
+							<label for="age">Rating</label>
+							<input type="text" id="rating" class="text-input form__text-input">
+							<label for="age">Location</label>
+							<input type="text" id="location" class="text-input form__text-input">
+							<label for="age">Interests</label>
+							<input type="text" id="interests" class="text-input form__text-input">
+							<button type="button" class="button">Search</button>
+							<button type="button" class="button button_close-adv-search">Close advanced search</button>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="search-page__content">
@@ -207,6 +220,7 @@
 							<div class="result-setup__option">fame rating</div>
 							<div class="result-setup__option">common tags</div>
 						</div>
+						<button class="button button_adv-search">Open advanced search</button>
 					</div>
 				</aside>
 			</div>
@@ -218,4 +232,5 @@
 
 </body>
 <script src="../js/other.js"></script>
+<script src="../js/search.js"></script>
 </html>

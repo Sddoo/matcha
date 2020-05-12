@@ -12,3 +12,4 @@ services:
     volumes:
       - ./public:/matcha/public
       - ./package.json:/matcha/package.json
+      - ./node_modules:/matcha/node_modules

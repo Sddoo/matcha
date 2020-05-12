@@ -127,103 +127,12 @@ body {
   width: 90%;
 }
 
-.form {
-  text-align: center;
-  font-size: 1em;
-}
-.form__inner {
-  width: 100%;
-  min-width: 150px;
-  margin: auto;
-}
-.form__inner_width-75 {
-  width: 75%;
-}
-.form__inner_width-50 {
-  width: 50%;
-}
-.form__text-input {
-  height: 40px;
-  width: 100%;
-  margin: 5px 0 15px 0;
-  padding: 0;
-}
-.form__text-input_size-m {
-  height: 100px;
-}
-.form__file-input {
-  margin: auto;
-}
-.form__button {
-  min-width: 10%;
-  max-width: 100%;
-  height: 40px;
-  margin-top: 3%;
-}
-.form_hidden {
-  display: none;
-}
-
-.text-input {
-  display: block;
-  font-size: inherit;
-}
-
-.button {
-  display: inline-block;
-}
-.button_adv-search {
-  background-color: white;
-  color: #1C2C55;
-}
-
-.search-page {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto 1fr;
-  grid-column-gap: 20px;
-  grid-row-gap: 40px;
-}
-.search-page__form {
-  grid-column: 2/4;
-  text-align: center;
-}
-.search-page__content {
-  grid-column: 1/4;
-}
-.search-page__setup {
-  position: sticky;
-  top: 60px;
-  grid-column: 4/5;
-  height: 400px;
-  color: white;
-  background-color: #1C2C55;
-}
-
-.result-setup {
-  display: flex;
-  flex-direction: column;
-}
-.result-setup__inner {
-  padding: 10px;
-}
-.result-setup__row {
-  width: 100%;
-}
-.result-setup__option {
-  cursor: pointer;
-}
-.result-setup__option:hover {
-  background-color: white;
-  color: #1C2C55;
-}
-
 .profile-preview__inner {
   display: grid;
   grid-template-columns: min-content auto;
   grid-template-rows: auto;
   grid-column-gap: 1%;
-  margin: 20px auto;
+  margin: 20px 0;
 }
 .profile-preview__image {
   height: 300px;
@@ -247,6 +156,15 @@ body {
   grid-column: 1/5;
 }
 
+.text-input {
+  display: block;
+  font-size: inherit;
+}
+
+.button {
+  display: inline-block;
+}
+
 .header-1-level {
   font-size: 1.5em;
 }
@@ -260,4 +178,45 @@ body {
   margin: 15px 0;
 }
 
-/*# sourceMappingURL=search.css.map */
+.dialog {
+  display: grid;
+  grid-template-columns: minmax(350px, 30%) minmax(700px, 70%);
+  grid-template-rows: 80vh;
+}
+.dialog__list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: scroll;
+}
+.dialog__search {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+.dialog__chat {
+  background-color: lightgreen;
+}
+
+.chat {
+  display: grid;
+  grid-template-columns: 90% 10%;
+  grid-template-rows: 95% 5%;
+}
+.chat__messages {
+  grid-area: 1/1/1/3;
+  background-color: lightblue;
+  overflow-y: scroll;
+}
+.chat__message {
+  width: 100%;
+}
+.chat__input {
+  grid-area: 2/1/2/1;
+  background-color: lightpink;
+}
+.chat__button {
+  grid-area: 2/2/2/2;
+}
+
+/*# sourceMappingURL=messages.css.map */

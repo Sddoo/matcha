@@ -115,7 +115,7 @@ body {
   width: 90%;
 }
 .main__inner_padding-3 {
-  padding: 3% 0 0 0;
+  padding: 3% 0 3% 0;
 }
 .main__elem {
   width: 100%;
@@ -217,6 +217,9 @@ body {
   padding: 5px;
   max-width: 100%;
   max-height: 100%;
+}
+.radio__image_padding-none {
+  padding: 0;
 }
 
 header-1-level {

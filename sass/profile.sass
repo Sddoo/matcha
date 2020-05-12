@@ -2,6 +2,7 @@
 @import 'header.sass'
 @import 'footer.sass'
 
+
 //  main
 
 .main
@@ -15,7 +16,7 @@
     &_width-90
       width: 90%
     &_padding-3
-      padding: 3% 0 0 0
+      padding: 3% 0 3% 0
   &__elem
     width: 100%
     &_width-50
@@ -30,23 +31,58 @@
   display: flex
   flex-direction: row
   &__image-wrap
-    max-width: 50%
+    width: 30%
     margin-right: 3%
-    height: 85vh
   &__image
     &_main
-      width: auto
+      width: 100%
       height: auto
-      max-width: 100%
-      max-height: 90%
       margin: auto
+    &_list
+      padding: 3px
+      max-width: 100%
+      max-height: 100%
   &__image-list
     display: flex
     flex-direction: row
     justify-content: center
     background-color: black
-    height: 10%
-    width: auto
+    height: 7vh
+    width: 100%
+  &__actions
+    display: flex
+    flex-direction: row
+    justify-content: space-around
+    width: 100%
+
+
+//  radio
+
+.radio
+  cursor: pointer
+  &__input
+    position: absolute
+    opacity: 0
+    width: 0
+    height: 0
+    margin: 0
+    &:checked + .radio__image
+      outline: 2px solid #f00
+  &__image
+    padding: 5px
+    max-height: 100%
+    max-width: 100%
+
+    &_padding-none
+      padding: initial
+      margin: 0 2px
+
+
+//  user status
+
+.user-status
+  font-size: 0.5em
+  color: #aaa
 
 
 //  headers
@@ -60,4 +96,5 @@
 .header-3-level
   font-size: 1.1em
   margin: 15px 0
+
 

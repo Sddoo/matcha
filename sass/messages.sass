@@ -1,0 +1,129 @@
+@import 'settings.sass'
+@import 'header.sass'
+@import 'footer.sass'
+
+
+//  main
+
+.main
+  &__inner
+    padding: 6% 0 0 0
+    margin: auto
+    width: 70%
+    min-width: 500px
+    &_width-50
+      width: 50%
+    &_width-90
+      width: 90%
+    &_padding-3
+      padding: 3% 0 3% 0
+  &__elem
+    width: 100%
+    &_width-50
+      width: 50%
+    &_width-90
+      width: 90%
+
+
+//  profile preview
+
+.profile-preview
+  &__inner
+    display: grid
+    grid-template-columns: min-content auto
+    grid-template-rows: auto
+    grid-column-gap: 1%
+    margin: 20px 0
+  &__image
+    height: 300px
+    width: 300px
+    &_resize-100
+      height: 100px
+      width: 100px
+  &__info
+    display: grid
+    grid-template-columns: repeat(4, 1fr)
+    grid-template-rows: 1fr 2fr
+    text-align: center
+    &_size-s
+      text-align: left
+      font-size: 0.7em
+  &__block
+    &_full-width
+      grid-column: 1 / 5
+
+
+// text input
+
+.text-input
+  display: block
+  font-size: inherit
+
+
+//  button
+
+.button
+  display: inline-block
+
+
+//  headers
+
+.header-1-level
+  font-size: 1.5em
+
+.header-2-level
+  font-size: 1.2em
+
+.header-3-level
+  font-size: 1.1em
+  margin: 15px 0
+
+
+//  dialog
+
+.dialog
+  display: grid
+  grid-template-columns: minmax(350px, 30%) minmax(700px, 70%)
+  grid-template-rows: 80vh
+  &__list
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    overflow-y: scroll
+  &__search
+    display: flex
+    justify-content: center
+    padding: 10px
+  &__chat
+    background-color: lightgreen
+
+
+//  chat
+
+.chat
+  display: grid
+  grid-template-columns: 90% 10%
+  grid-template-rows: 95% 5%
+  &__messages
+    grid-area: 1 / 1 / 1 / 3
+    background-color: lightblue
+    overflow-y: scroll
+  &__message
+    width: 100%
+  &__input
+    grid-area: 2 / 1 / 2 / 1
+    background-color: lightpink
+  &__button
+    grid-area: 2 / 2 / 2 / 2
+
+
+
+
+
+
+
+
+
+
+
+
