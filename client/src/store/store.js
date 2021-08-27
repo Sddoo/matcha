@@ -1,7 +1,7 @@
 import {createStore} from "redux";
 
 const defaultState = {
-    isAuth: false,
+    isAuth: false
 }
 
 const defaultAction = {type: "NONE", payload: ""};
