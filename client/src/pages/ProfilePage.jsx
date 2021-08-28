@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {useParams} from "react-router-dom";
-import {Image, Title, Button, Input} from "../components/UI/UI";
+import {Image, Title, Button} from "../components/UI/UI";
 import testImage from "../test.png"
 import useHttp from "../hooks/useHttp";
 import Field from "../components/Field";
@@ -32,8 +32,17 @@ const ProfileInfo = styled.div`
 	flex-direction: column;
 `
 
-const ChangeButton = styled(Button)`
+const InfoField = styled(Field)`
+	width: 50%;
+	margin: 10px 40px;
+`
 
+const ModifyButton = styled(Button)`
+	width: 150px;
+`
+
+const SaveButton = styled(Button)`
+	width: 150px;
 `
 
 const ProfileImages = styled.div`
@@ -42,10 +51,27 @@ const ProfileImages = styled.div`
 `
 
 const ProfilePage = () => {
+	const [modifyMode, setModifyMode] = useState(false);
+	const [infoValues, setInfoValues] = useState({
+		gender: "male",
+		sexPref: "female",
+		biography: "test",
+		interests: "#geek #huntshowdown"
+	});
 	const profileId = useParams().id;
 	const {request} = useHttp();
 	
+	const modifyInfo = () => {
+		setModifyMode(true);
+	}
 	
+	const saveChanges = () => {
+		setModifyMode(false);
+	}
+	
+	const changeHandler = (event) => {
+		setInfoValues({...infoValues, [event.target.name]: event.target.value});
+	}
 	
 	console.log('testProfId', profileId);
 	return (
@@ -56,11 +82,25 @@ const ProfilePage = () => {
 			
 			<ProfileInfo>
 				<Title>About me</Title>
-				<ChangeButton>Change info</ChangeButton>
-				<Field name="Gender: " value="someValue" Component={Input}/>
-				<Field name="Sexual preferences: " value="someValue" Component={Input}/>
-				<Field name="Biography: " value="someValue" Component={Input}/>
-				<Field name="Interests: " value="someValue" Component={Input}/>
+				<ModifyButton onClick={modifyInfo}>Change info</ModifyButton>
+				{modifyMode ? <SaveButton onClick={saveChanges}>Save changes</SaveButton> : <></>}
+				<InfoField name="gender" value={infoValues.gender} inputSettings={modifyMode ? {
+					type: "select",
+					options: ["male", "female"],
+					onChange: changeHandler
+				} : undefined}/>
+				<InfoField name="sexPref" value={infoValues.sexPref} inputSettings={modifyMode ? {
+					type: "text",
+					onChange: changeHandler
+				} : undefined}/>
+				<InfoField name="biography" value={infoValues.biography} inputSettings={modifyMode ? {
+					type: "text",
+					onChange: changeHandler
+				} : undefined}/>
+				<InfoField name="interests" value={infoValues.interests} inputSettings={modifyMode ? {
+					type: "text",
+					onChange: changeHandler
+				} : undefined}/>
 			</ProfileInfo>
 			
 			<ProfileImages>
