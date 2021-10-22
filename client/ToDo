@@ -1,0 +1,9 @@
+Tomorrow:
+1) Refresh profile info section with mui
+2) Change accessibility of actions under the profile image
+3) Make carousel for sections with people who liked u, interested u and for images mb
+
+Don't forget:
+1) Try to change profileId in address bar
+2) Test loading in auth
+3) Transfer to MUIstyled from styled-components

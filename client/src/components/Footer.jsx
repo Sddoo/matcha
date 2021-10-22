@@ -1,19 +1,21 @@
 import React from 'react';
+import {
+	Container,
+	Box
+} from "@mui/material";
 import styled from "styled-components";
 
-const StyledFooter = styled.footer`
-	background-color: yellowgreen;
+const StyledBox = styled(Box)`
 	height: 20vh;
-	width: 100%;
-	padding: 0 20%;
-	margin-top: 10px;
-`;
+`
 
 const Footer = () => {
 	return (
-		<StyledFooter>
-			test
-		</StyledFooter>
+		<StyledBox sx={{backgroundColor: "primary.main", color: "secondary.main"}}>
+			<Container maxWidth="md">
+			
+			</Container>
+		</StyledBox>
 	);
 };
 

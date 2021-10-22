@@ -16,7 +16,7 @@ const validateInputs = (formData) => {
 				break;
 			}
 			default: {
-				if (input.length >= 16) {
+				if (input.length >= 16 || input.length <= 4) {
 					notValidated.push(key);
 				}
 			}

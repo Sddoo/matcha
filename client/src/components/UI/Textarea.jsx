@@ -5,10 +5,10 @@ const StyledTextarea = styled.textarea`
 
 `
 
-const Textarea = () => {
-	return (<div>
+const Textarea = ({...props}) => {
+	return (<StyledTextarea {...props}>
 		
-		</div>);
+		</StyledTextarea>);
 };
 
 export default Textarea;

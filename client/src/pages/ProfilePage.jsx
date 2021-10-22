@@ -1,110 +1,103 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import {useParams} from "react-router-dom";
-import {Image, Title, Button} from "../components/UI/UI";
+import { Link, Redirect, useParams } from "react-router-dom";
+import {Image, LinearProgressWithLabel} from "../components/UI/UI";
 import testImage from "../test.png"
 import useHttp from "../hooks/useHttp";
-import Field from "../components/Field";
+import UserInfo from "../components/UserInfo";
+import { Container, Button, Box } from "@mui/material";
+import { styled as MUIstyled } from "@mui/system";
+import { useSelector } from "react-redux";
 
 const StyledProfilePage = styled.div`
 	background-color: lightblue;
 	width: 100%;
 	display: grid;
-	height: 200vh;
+	height: 100vh;
 	grid-gap: 15px;
 	grid-template-columns: 30% 1fr;
 	grid-template-rows: 70% 1fr;
 	grid-template-areas:
-		"avatar info"
+		"aside info"
 		"images images";
 `
 
+const StyledButtonsContainer = MUIstyled(Container)({
+	display: "flex",
+	justifyContent: "space-between",
+	flexWrap: "wrap"
+})
+
+const ProfileAside = styled.aside`
+	grid-area: aside;
+`
+
 const ProfileAvatar = styled.div`
-	grid-area: avatar;
-	background-color: lightcoral;
+
 `
 
-const ProfileInfo = styled.div`
+const ProfileActions = styled.div`
+
+`
+
+const ProfileFameRating = styled.div`
+
+`
+
+const Geolocation = styled.div`
+
+`
+
+const ProfileInfo = styled(UserInfo)`
 	grid-area: info;
-	background-color: lightseagreen;
-	padding: 20px 40px;
-	display: flex;
-	flex-direction: column;
-`
-
-const InfoField = styled(Field)`
-	width: 50%;
-	margin: 10px 40px;
-`
-
-const ModifyButton = styled(Button)`
-	width: 150px;
-`
-
-const SaveButton = styled(Button)`
-	width: 150px;
 `
 
 const ProfileImages = styled.div`
 	grid-area: images;
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
 	background-color: lightgreen;
 `
 
 const ProfilePage = () => {
-	const [modifyMode, setModifyMode] = useState(false);
-	const [infoValues, setInfoValues] = useState({
-		gender: "male",
-		sexPref: "female",
-		biography: "test",
-		interests: "#geek #huntshowdown"
-	});
-	const profileId = useParams().id;
+	const paramId = useParams().id;
+	const {profileId, token} = useSelector( state => state);
 	const {request} = useHttp();
+	const owner = paramId === profileId;
 	
-	const modifyInfo = () => {
-		setModifyMode(true);
+	if (!token) { // переделать эту парашу
+		return <Redirect to="/auth"/>
 	}
 	
-	const saveChanges = () => {
-		setModifyMode(false);
-	}
-	
-	const changeHandler = (event) => {
-		setInfoValues({...infoValues, [event.target.name]: event.target.value});
-	}
-	
-	console.log('testProfId', profileId);
 	return (
 		<StyledProfilePage>
-			<ProfileAvatar>
-				<Image src={testImage} alt="avatar"/>
-			</ProfileAvatar>
+			<ProfileAside>
+				<ProfileAvatar>
+					<Image src={testImage} alt="avatar"/>
+				</ProfileAvatar>
+				<ProfileActions>
+					<Box sx={{p: "0 20px 10px"}}>
+						<LinearProgressWithLabel value={61} />
+					</Box>
+					{owner ?
+						<StyledButtonsContainer>
+							<Button variant="outlined" size={"small"} component={Link} to="/profile/123">Like</Button>
+							<Button variant="outlined" size={"small"}>Report</Button>
+							<Button variant="outlined" size={"small"}>Block</Button>
+							<Button variant="outlined" size={"small"} sx={{mt: "10px", flexGrow: "1"}}>Write message</Button>
+						</StyledButtonsContainer> : <></>}
+				</ProfileActions>
+			</ProfileAside>
 			
-			<ProfileInfo>
-				<Title>About me</Title>
-				<ModifyButton onClick={modifyInfo}>Change info</ModifyButton>
-				{modifyMode ? <SaveButton onClick={saveChanges}>Save changes</SaveButton> : <></>}
-				<InfoField name="gender" value={infoValues.gender} inputSettings={modifyMode ? {
-					type: "select",
-					options: ["male", "female"],
-					onChange: changeHandler
-				} : undefined}/>
-				<InfoField name="sexPref" value={infoValues.sexPref} inputSettings={modifyMode ? {
-					type: "text",
-					onChange: changeHandler
-				} : undefined}/>
-				<InfoField name="biography" value={infoValues.biography} inputSettings={modifyMode ? {
-					type: "text",
-					onChange: changeHandler
-				} : undefined}/>
-				<InfoField name="interests" value={infoValues.interests} inputSettings={modifyMode ? {
-					type: "text",
-					onChange: changeHandler
-				} : undefined}/>
-			</ProfileInfo>
+			<ProfileInfo/>
 			
 			<ProfileImages>
-			
+				<div><Image src={testImage}/></div>
+				<div><Image src={testImage}/></div>
+				<div><Image src={testImage}/></div>
+				<div><Image src={testImage}/></div>
+				<div><Image src={testImage}/></div>
 			</ProfileImages>
 		</StyledProfilePage>
 	);

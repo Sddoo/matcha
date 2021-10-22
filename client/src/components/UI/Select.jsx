@@ -5,10 +5,10 @@ const StyledSelect = styled.select`
 
 `
 
-const Select = ({children, ...props}) => {
+const Select = ({options, ...props}) => {
 	return (
 		<StyledSelect {...props}>
-			{children}
+			{options.map((elem) => <option value={elem} key={elem}>{elem}</option>)}
 		</StyledSelect>
 	);
 };
