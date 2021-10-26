@@ -13,20 +13,19 @@ const StyledProfilePage = styled.div`
 	background-color: lightblue;
 	width: 100%;
 	display: grid;
-	height: 100vh;
 	grid-gap: 15px;
 	grid-template-columns: 30% 1fr;
-	grid-template-rows: 70% 1fr;
+	grid-template-rows: auto minmax(300px, 1fr);
 	grid-template-areas:
 		"aside info"
 		"images images";
 `
 
-const StyledButtonsContainer = MUIstyled(Container)({
-	display: "flex",
-	justifyContent: "space-between",
-	flexWrap: "wrap"
-})
+const StyledButtonsContainer = MUIstyled(Container)`
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+`
 
 const ProfileAside = styled.aside`
 	grid-area: aside;

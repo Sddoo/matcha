@@ -4,8 +4,9 @@ import { Input, Textarea, Title2 } from "./UI/UI";
 import Field from "./Field";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Button, Stack, Typography, Select, MenuItem, TextField } from "@mui/material";
+import { Button, Stack, Typography, Select, MenuItem, TextField, Divider } from "@mui/material";
 import { styled as MUIstyled } from "@mui/system";
+import Carousel from "../components/Carousel";
 
 const StyledUserInfo = styled.div`
 	background-color: lightseagreen;
@@ -45,7 +46,7 @@ const UserInfo = () => {
 	const [infoValues, setInfoValues] = useState({
 		gender: "Male",
 		age: 23,
-		sexPref: "female",
+		sexPref: "Female",
 		biography: "test",
 		interests: "#geek",
 		location: "Moscow"
@@ -76,6 +77,8 @@ const UserInfo = () => {
 				<Typography>online</Typography>
 			</UserTitle>
 			
+			<Divider sx={{mb: "10px"}}/>
+			
 			<Stack sx={{width: "20%"}}>
 				{owner && !modifyMode ? <Button onClick={modifyInfo} size={"small"}>Change info</Button> : <></>}
 				{modifyMode ? <Button onClick={cancelModifying} size={"small"}>Cancel modifying</Button> : <></>}
@@ -84,75 +87,94 @@ const UserInfo = () => {
 			
 			<Stack spacing={1}>
 				<Stack justifyContent="space-between" direction="row">
-					<Typography>Gender:</Typography>
+					<Typography>Gender</Typography>
 					{modifyMode
 						? (<Select value={infoValues.gender} name="gender" onChange={changeHandler} size="small">
 								<MenuItem value="Male">Male</MenuItem>
 								<MenuItem value="Female">Female</MenuItem>
 								<MenuItem value="Both">Both</MenuItem>
-							</Select>
-							)
-						: <Typography>{infoValues.gender}</Typography>
+							</Select>)
+						: <Typography sx={{width: "300px", textAlign: "right"}}>{infoValues.gender}</Typography>
 					}
 				</Stack>
 				
 				<Stack justifyContent="space-between" direction="row">
-					<Typography>Age:</Typography>
+					<Typography>Age</Typography>
 					{modifyMode
-						? <TextField type="number" value={infoValues.age} name="age" onChange={changeHandler} size="small"/>
-						: <Typography>{infoValues.age}</Typography>
+						? <TextField type="number" value={infoValues.age} name="age" onChange={changeHandler} size="small" sx={{width: "100px"}}/>
+						: <Typography sx={{width: "300px", textAlign: "right"}}>{infoValues.age}</Typography>
 					}
 				</Stack>
 				
 				<Stack justifyContent="space-between" direction="row">
-					<Typography>Sexual preferences:</Typography>
+					<Typography>Sexual preferences</Typography>
 					{modifyMode
-						? <Select value={infoValues.sexPref} name="sexPref" onChange={changeHandler} options={["male", "female", "other"]}/>
-						: <Typography>{infoValues.sexPref}</Typography>
+						? (<Select value={infoValues.sexPref} name="sexPref" onChange={changeHandler} size="small">
+								<MenuItem value="Male">Male</MenuItem>
+								<MenuItem value="Female">Female</MenuItem>
+								<MenuItem value="Both">Both</MenuItem>
+							</Select>)
+						: <Typography sx={{width: "300px", textAlign: "right"}}>{infoValues.sexPref}</Typography>
 					}
 				</Stack>
 				
 				<Stack justifyContent="space-between" direction="row">
-					<Typography>Biography:</Typography>
+					<Typography>Biography</Typography>
 					{modifyMode
-						? <Textarea value={infoValues.biography} name="biography" onChange={changeHandler}/>
-						: <Typography>{infoValues.biography}</Typography>
+						? <TextField
+							label="Biography"
+							multiline
+							maxRows={4}
+							name="biography"
+							value={infoValues.biography}
+							onChange={changeHandler}
+							variant="filled"
+							sx={{width: "300px"}}
+						/>
+						: <Typography sx={{width: "300px", textAlign: "right"}}>{infoValues.biography}</Typography>
 					}
 				</Stack>
 				
 				<Stack justifyContent="space-between" direction="row">
-					<Typography>Interests:</Typography>
+					<Typography>Interests</Typography>
 					{modifyMode
-						? <Textarea value={infoValues.interests} name="interests" onChange={changeHandler}/>
-						: <Typography>{infoValues.interests}</Typography>
+						? <TextField
+							label="Interests"
+							multiline
+							maxRows={4}
+							name="interests"
+							value={infoValues.interests}
+							onChange={changeHandler}
+							variant="filled"
+							sx={{width: "300px"}}
+						/>
+						: <Typography sx={{width: "300px", textAlign: "right"}}>{infoValues.interests}</Typography>
 					}
 				</Stack>
 				
 				<Stack justifyContent="space-between" direction="row">
-					<Typography>Location:</Typography>
+					<Typography>Location</Typography>
 					{modifyMode
-						? <Input type="text" value={infoValues.location} name="location" onChange={changeHandler}/>
-						: <Typography>{infoValues.location}</Typography>
+						? <TextField value={infoValues.location} name="location" onChange={changeHandler} size="small"/>
+						: <Typography sx={{width: "300px", textAlign: "right"}}>{infoValues.location}</Typography>
 					}
 				</Stack>
 			</Stack>
 			
+			<Divider sx={{m: "20px 0 10px 0"}}>
+				<Typography>People, who are interested in you</Typography>
+			</Divider>
+			
 			<Visitors>
-				<Title2>
-					People, who are interested in you
-				</Title2>
-				<VisitorsList>
-				
-				</VisitorsList>
+				<Carousel />
 			</Visitors>
 			
+			<Divider sx={{m: "20px 0 10px 0"}}>
+				<Typography>People, who liked you</Typography>
+			</Divider>
+			
 			<Likers>
-				<Title2>
-					People, who liked you
-				</Title2>
-				<LikersList>
-				
-				</LikersList>
+				<Carousel />
 			</Likers>
 		</StyledUserInfo>
 	);
