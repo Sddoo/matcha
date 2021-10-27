@@ -1,9 +1,11 @@
 Tomorrow:
-1) Refresh profile info section with mui +
-2) Change accessibility of actions under the profile image +
-3) Make carousel for sections with people who liked u, interested u and for images mb
+1) Make profile settings page +
+2) Study geolocation
+3) Add profile images adder
 
 Don't forget:
 1) Try to change profileId in address bar
 2) Test loading in auth
 3) Transfer to MUIstyled from styled-components
+4) Try to type in input "repeatedPassword" and don't type in "password"
+5) Fix grid on settings page

@@ -21,7 +21,7 @@ const Global = createGlobalStyle`
 `
 
 const MainContent = styled.div`
-	width: 60%;
+	width: 65%;
 	height: auto;
 	margin: 0 auto 0;
 `;

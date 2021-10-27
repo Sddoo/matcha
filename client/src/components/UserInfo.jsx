@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import styled from "styled-components"
-import { Input, Textarea, Title2 } from "./UI/UI";
-import Field from "./Field";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Button, Stack, Typography, Select, MenuItem, TextField, Divider } from "@mui/material";
 import { styled as MUIstyled } from "@mui/system";
-import Carousel from "../components/Carousel";
+import UsersCarousel from "./UsersCarousel";
+import testImage from "../test.png"
 
 const StyledUserInfo = styled.div`
 	background-color: lightseagreen;
@@ -24,21 +23,8 @@ const Visitors = styled.div`
 
 `
 
-const VisitorsList = styled.div`
-
-`
-
 const Likers = styled.div`
 
-`
-
-const LikersList = styled.div`
-
-`
-
-const InfoField = styled(Field)`
-	width: 80%;
-	margin: 10px 40px;
 `
 
 const UserInfo = () => {
@@ -55,6 +41,14 @@ const UserInfo = () => {
 	const {profileId, token} = useSelector(state => state);
 	const paramId = useParams().id;
 	const owner = paramId === profileId;
+	const users = Array(10).fill(
+		{
+			image: testImage,
+			name: "Vladislav Portnov",
+			age: 23,
+			interests: "#geek"
+		}
+	);
 	
 	const modifyInfo = () => {
 		setOldInfoValues(infoValues);
@@ -166,7 +160,7 @@ const UserInfo = () => {
 			</Divider>
 			
 			<Visitors>
-				<Carousel />
+				<UsersCarousel users={users}/>
 			</Visitors>
 			
 			<Divider sx={{m: "20px 0 10px 0"}}>
@@ -174,7 +168,7 @@ const UserInfo = () => {
 			</Divider>
 			
 			<Likers>
-				<Carousel />
+				<UsersCarousel users={users}/>
 			</Likers>
 		</StyledUserInfo>
 	);

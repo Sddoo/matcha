@@ -1,14 +1,17 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import Field from '../components/Field';
-import { Input } from '../components/UI/UI';
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { Stack, Typography, Button, TextField, Divider, Grid, Box } from "@mui/material";
+import { styled as MUIstyled } from "@mui/system";
+import validateInputs from "../utils/inputValidation";
+import useHttp from "../hooks/useHttp";
 
 const StyledSettingsPage = styled.div`
 	background-color: lightblue;
 	height: 100vh;
-	padding: 30px 0;
+	padding: 30px 10%;
 `
 
 const StyledField = styled(Field)`
@@ -20,83 +23,223 @@ const StyledField = styled(Field)`
 	}
 `
 
+const StyledSettingsContainer = MUIstyled(Stack)`
+`
+
 const SettingsPage = () => {
-	const [changeEmail, setChangeEmail] = useState(false);
-	const [changeFirstName, setChangeFirstName] = useState(false);
-	const [changeLastName, setChangeLastName] = useState(false);
-	const [changePassword, setChangePassword] = useState(false);
-	const [newEmail, setNewEmail] = useState("");
-	const [newFirstName, setNewFirstName] = useState("");
-	const [newLastName, setNewLastName] = useState("");
-	const [oldPassword, setOldPassword] = useState("");
-	const [newPassword, setNewPassword] = useState("");
+	const [invalidInputs, setInvalidInputs] = useState([]);
+	const {request} = useHttp();
+	const [openedFields, setOpenedFields] = useState({
+		email: false,
+		firstName: false,
+		lastName: false,
+		password: false
+	});
+	const [inputsData, setInputsData] = useState({
+		newEmail: "",
+		newFirstName: "",
+		newLastName: "",
+		oldPassword: "",
+		newPassword: "",
+		repeatedPassword: ""
+	});
+	const [currentData, setCurrentData] = useState({
+		email: "",
+		firstName: "",
+		lastName: ""
+	});
 	
 	if (!useSelector(state => state.token)) { // переделать эту парашу
 		return <Redirect to="/auth"/>
 	}
 	
+	const changeHandler = (e) => {
+		setInputsData({...inputsData, [e.target.name]: e.target.value});
+	}
+	
+	const toggleSetting = (e) => {
+		setOpenedFields({...openedFields, [e.target.name]: !openedFields[e.target.name]})
+	}
+	
+	const submitHandler = () => {
+		const invalidInputsArr = validateInputs(inputsData, { emptyValid: true });
+		
+		console.log("invalidInputsArr: ", invalidInputsArr);
+		
+		if (invalidInputsArr.length) {
+			setInvalidInputs(invalidInputsArr);
+		} else {
+			setInvalidInputs([]);
+			console.log("testInputs", inputsData);
+		}
+	}
+	
 	return (
 		<StyledSettingsPage>
 			
-			<StyledField>
-				<div>Email:</div>
-				<div>dkflbr-09@mail.ru</div>
-				{changeEmail
-					? <div onClick={() => setChangeEmail(false)}>Cancel</div>
-					: <div onClick={() => setChangeEmail(true)}>Change</div>}
-				{changeEmail && (
-					<>
-						<div>New email:</div>
-						<Input type="text" value={newEmail} onChange={(e) => setNewEmail(e.target.value)}/>
-						<button>Submit</button>
-					</>
-				)}
-			</StyledField>
-			<StyledField>
-				<div>First name:</div>
-				<div>What is love</div>
-				{changeFirstName
-					? <div onClick={() => setChangeFirstName(false)}>Cancel</div>
-					: <div onClick={() => setChangeFirstName(true)}>Change</div>}
-				{changeFirstName && (
-					<>
-						<div>New first name:</div>
-						<Input type="text" value={newFirstName} onChange={(e) => setNewFirstName(e.target.value)}/>
-						<button>Submit</button>
-					</>
-				)}
-			</StyledField>
-			<StyledField>
-				<div>Last name:</div>
-				<div>Portnov</div>
-				{changeLastName
-					? <div onClick={() => setChangeLastName(false)}>Cancel</div>
-					: <div onClick={() => setChangeLastName(true)}>Change</div>}
-				{changeLastName && (
-					<>
-						<div>New last name:</div>
-						<Input type="text" value={newLastName} onChange={(e) => setNewLastName(e.target.value)}/>
-						<button>Submit</button>
-					</>
-				)}
-			</StyledField>
-			<StyledField>
-				<div>Password:</div>
-				<div>*********</div>
-				{changePassword
-					? <div onClick={() => setChangePassword(false)}>Cancel</div>
-					: <div onClick={() => setChangePassword(true)}>Change</div>}
-				{changePassword && (
-					<>
-						<div>Old password:</div>
-						<Input type="password" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)}/>
-						<div> </div>
-						<div>New password:</div>
-						<Input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)}/>
-						<button>Submit</button>
-					</>
-				)}
-			</StyledField>
+			<Typography variant="h5" gutterBottom align="center" m={"0 0 20px 0"}>Settings page</Typography>
+			
+			<StyledSettingsContainer>
+				
+				<Grid container spacing={1}>
+					<Grid item xs={2}>
+						<Typography>Email</Typography>
+					</Grid>
+					<Grid item xs={8} align="center">
+						<Typography>currentData.email</Typography>
+					</Grid>
+					<Grid item xs={2} align="center">
+						<Button name="email" onClick={toggleSetting} size="small">
+							{openedFields.email ? "Close" : "Change"}
+						</Button>
+					</Grid>
+					{openedFields.email && (
+						<>
+							<Grid item xs={2}> </Grid>
+							<Grid item xs={8} align="center">
+								<TextField
+									value={inputsData.newEmail}
+									name="newEmail"
+									onChange={changeHandler}
+									error={invalidInputs.includes("newEmail")}
+									helperText={invalidInputs.includes("newEmail") ? "It should fit email format": ""}
+									size="small"/>
+							</Grid>
+							<Grid item xs={2}> </Grid>
+						</>
+					)}
+				</Grid>
+				
+				<Divider sx={{m: "10px 0 10px 0"}} />
+				
+				<Grid container spacing={1}>
+					<Grid item xs={2}>
+						<Typography>First name</Typography>
+					</Grid>
+					<Grid item xs={8} align="center">
+						<Typography>currentData.firstName</Typography>
+					</Grid>
+					<Grid item xs={2} align="center">
+						<Button name="firstName" onClick={toggleSetting} size="small">
+							{openedFields.firstName ? "Close" : "Change"}
+						</Button>
+					</Grid>
+					{openedFields.firstName && (
+						<>
+							<Grid item xs={2}> </Grid>
+							<Grid item xs={8} align="center">
+								<TextField
+									value={inputsData.newFirstName}
+									name="newFirstName"
+									onChange={changeHandler}
+									error={invalidInputs.includes("newFirstName")}
+									size="small"/>
+							</Grid>
+							<Grid item xs={2}> </Grid>
+						</>
+					)}
+				</Grid>
+				
+				<Divider sx={{m: "10px 0 10px 0"}} />
+				
+				<Grid container spacing={1}>
+					<Grid item xs={2}>
+						<Typography>Last name</Typography>
+					</Grid>
+					<Grid item xs={8} align="center">
+						<Typography>currentData.lastName</Typography>
+					</Grid>
+					<Grid item xs={2} align="center">
+						<Button name="lastName" onClick={toggleSetting} size="small">
+							{openedFields.lastName ? "Close" : "Change"}
+						</Button>
+					</Grid>
+					{openedFields.lastName && (
+						<>
+							<Grid item xs={2}> </Grid>
+							<Grid item xs={8} align="center">
+								<TextField
+									value={inputsData.newLastName}
+									name="newLastName"
+									onChange={changeHandler}
+									error={invalidInputs.includes("newLastName")}
+									size="small"/>
+							</Grid>
+							<Grid item xs={2}> </Grid>
+						</>
+					)}
+				</Grid>
+				
+				<Divider sx={{m: "10px 0 10px 0"}} />
+				
+				<Grid container spacing={1}>
+					<Grid item xs={2}>
+						<Typography>Password</Typography>
+					</Grid>
+					<Grid item xs={8} align="center">
+						<Typography>********</Typography>
+					</Grid>
+					<Grid item xs={2} align="center">
+						<Button name="password" onClick={toggleSetting} size="small">
+							{openedFields.password ? "Close" : "Change"}
+						</Button>
+					</Grid>
+					{openedFields.password && (
+						<>
+							<Grid item xs={4}>
+								<Typography>Old password</Typography>
+							</Grid>
+							<Grid item xs={4} align="center">
+								<TextField
+									value={inputsData.oldPassword}
+									name="oldPassword"
+									type="password"
+									onChange={changeHandler}
+									error={invalidInputs.includes("oldPassword")}
+									size="small"/>
+							</Grid>
+							<Grid item xs={4}> </Grid>
+							
+							<Grid item xs={4}>
+								<Typography>New password</Typography>
+							</Grid>
+							<Grid item xs={4} align="center">
+								<TextField
+									value={inputsData.newPassword}
+									name="newPassword"
+									type="password"
+									onChange={changeHandler}
+									error={invalidInputs.includes("newPassword")}
+									helperText="It should contain uppercase and lowercase letters, numbers and should be more than 4 symbols and both passwords should have the same value"
+									size="small"/>
+							</Grid>
+							<Grid item xs={4}> </Grid>
+							
+							<Grid item xs={4}>
+								<Typography>Repeat new password</Typography>
+							</Grid>
+							<Grid item xs={4} align="center">
+								<TextField
+									value={inputsData.repeatedPassword}
+									name="repeatedPassword"
+									type="password"
+									onChange={changeHandler}
+									error={invalidInputs.includes("repeatedPassword")}
+									helperText="It should contain uppercase and lowercase letters, numbers and should be more than 4 symbols and both passwords should have the same value"
+									size="small"/>
+							</Grid>
+							<Grid item xs={4}> </Grid>
+						</>
+					)}
+				</Grid>
+				
+				<Divider sx={{m: "10px 0 10px 0"}} />
+				
+			</StyledSettingsContainer>
+			
+			<Box sx={{width: "200px", margin: "auto", textAlign: "center"}}>
+				<Button onClick={submitHandler}>Submit changes</Button>
+			</Box>
 			
 		</StyledSettingsPage>
 	);

@@ -5,6 +5,7 @@ import {Image, LinearProgressWithLabel} from "../components/UI/UI";
 import testImage from "../test.png"
 import useHttp from "../hooks/useHttp";
 import UserInfo from "../components/UserInfo";
+import ProfileImages from "../components/ProfileImages"
 import { Container, Button, Box } from "@mui/material";
 import { styled as MUIstyled } from "@mui/system";
 import { useSelector } from "react-redux";
@@ -51,12 +52,8 @@ const ProfileInfo = styled(UserInfo)`
 	grid-area: info;
 `
 
-const ProfileImages = styled.div`
+const StyledProfileImages = styled(ProfileImages)`
 	grid-area: images;
-	display: flex;
-	justify-content: space-between;
-	gap: 20px;
-	background-color: lightgreen;
 `
 
 const ProfilePage = () => {
@@ -64,6 +61,13 @@ const ProfilePage = () => {
 	const {profileId, token} = useSelector( state => state);
 	const {request} = useHttp();
 	const owner = paramId === profileId;
+	const profileImages = [
+		testImage,
+		testImage,
+		testImage,
+		testImage,
+		testImage
+	]
 	
 	if (!token) { // переделать эту парашу
 		return <Redirect to="/auth"/>
@@ -91,13 +95,7 @@ const ProfilePage = () => {
 			
 			<ProfileInfo/>
 			
-			<ProfileImages>
-				<div><Image src={testImage}/></div>
-				<div><Image src={testImage}/></div>
-				<div><Image src={testImage}/></div>
-				<div><Image src={testImage}/></div>
-				<div><Image src={testImage}/></div>
-			</ProfileImages>
+			<StyledProfileImages profileImages={profileImages}/>
 		</StyledProfilePage>
 	);
 };

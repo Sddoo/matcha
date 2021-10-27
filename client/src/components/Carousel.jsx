@@ -1,28 +1,8 @@
 import React, {useRef} from 'react';
 import { styled } from "@mui/system";
-import { Container, Box, Card, CardContent, Toolbar } from "@mui/material";
+import { Container, Box, Card } from "@mui/material";
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
-
-const CarouselWrap = styled(Container)`
-	position: relative;
-	overflow: hidden;
-	width: 100%;
-	height: 150px;
-	padding: 0 !important;
-`
-
-const CarouselContent = styled(Container)`
-	width: auto;
-	height: 100%;
-	position: absolute;
-	left: 0px;
-	z-index: 0;
-	display: flex;
-	flex-direction: row;
-	background-color: lightcoral;
-	padding: 0 !important;
-`
 
 const StyledArrowBox = styled(Box)`
 	background-color: rgba(0, 0, 0, 0);
@@ -43,41 +23,75 @@ const StyledArrowBox = styled(Box)`
 	}
 `
 
-const Carousel = () => {
-	const carouselRef = useRef();
-	const input = [
-		<CardContent key={1} sx={{ width: "100px"}}>1</CardContent>,
-		<CardContent key={2} sx={{ width: "100px"}}>2</CardContent>,
-		<CardContent key={3} sx={{ width: "100px"}}>3</CardContent>,
-		<CardContent key={4} sx={{ width: "100px"}}>4</CardContent>,
-		<CardContent key={5} sx={{ width: "100px"}}>5</CardContent>,
-		<CardContent key={6} sx={{ width: "100px"}}>6</CardContent>,
-		<CardContent key={7} sx={{ width: "100px"}}>7</CardContent>,
-		<CardContent key={8} sx={{ width: "100px"}}>8</CardContent>,
-		<CardContent key={9} sx={{ width: "100px"}}>9</CardContent>,
-		<CardContent key={10} sx={{width: "100px"}}>10</CardContent>,
-		<CardContent key={11} sx={{width: "100px"}}>11</CardContent>,
-		<CardContent key={12} sx={{width: "100px"}}>12</CardContent>
-	]
+const CarouselWrap = styled(Container)`
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: 250px;
+	padding: 0 !important;
+`
+
+const CarouselContent = styled(Box)`
+	width: auto;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	z-index: 0;
+	display: flex;
+	flex-direction: row;
+	background-color: lightcoral;
+	transition: left 0.5s linear;
+	padding: 5px !important;
+`
+
+const StyledCardWrap = styled(Card)`
+	box-sizing: border-box;
+	width: 150px;
+	height: 100%;
+	margin: 0 10px;
+`
+
+const Carousel = ({usersComps}) => {
+	const carouselContentRef = useRef();
+	const carouselWrapRef = useRef();
 	
+	/*
+	Работает на разности между шириной обертки и контента
+	step - хранит значение, на которое нужно сдвинуть контент вперед или назад
+	Eсли конец карусели меньше defaultState, то мы делаем шаг difference
+	*/
 	const moveCarousel = (direction) => {
-		let step = direction === "back" ? 200 : -200;
-		let res = (parseInt(carouselRef.current.style.left) || 0) + step + "px";
-		carouselRef.current.style.setProperty("left", res);
-		console.log("testCarousel", carouselRef.current.style.left);
+		let step;
+		let res;
+		let difference;
+		const defaultStep = 500;
+		const carouselWrapWidth = carouselWrapRef.current.getBoundingClientRect().width;
+		const carouselContentWidth = carouselContentRef.current.getBoundingClientRect().width;
+		const left = parseInt(carouselContentRef.current.style.left) || 0;
+		
+		if (carouselContentWidth <= carouselWrapWidth) return;
+		if (direction === "back") {
+			difference = -left;
+			step = difference <= defaultStep ? difference : defaultStep;
+		} else {
+			difference = carouselContentWidth - (-left + carouselWrapWidth);
+			step = difference >= defaultStep ? -defaultStep : -difference;
+		}
+		res = (parseInt(carouselContentRef.current.style.left) || 0) + step + "px";
+		carouselContentRef.current.style.setProperty("left", res);
 	}
 	
 	return (
-		<CarouselWrap>
+		<CarouselWrap ref={carouselWrapRef}>
 			<StyledArrowBox align="left" onClick={() => moveCarousel("back")}>
 				<ArrowBackIosNewOutlinedIcon/>
 			</StyledArrowBox>
 			
-			<CarouselContent ref={carouselRef}>
-				{input.map( (elem, i) =>
-					<Card key={i}>
+			<CarouselContent ref={carouselContentRef}>
+				{usersComps.map( (elem, i) =>
+					<StyledCardWrap key={i}>
 						{elem}
-					</Card>
+					</StyledCardWrap>
 				)}
 			</CarouselContent>
 			

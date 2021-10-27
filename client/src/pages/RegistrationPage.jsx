@@ -21,7 +21,8 @@ const RegistrationPage = () => {
 		username: '',
 		firstName: '',
 		lastName: '',
-		password: ''
+		password: '',
+		repeatedPassword: ''
 	});
 	const [invalidInputs, setInvalidInputs] = useState([]);
 	const {request, error, clearError} = useHttp();
@@ -52,13 +53,14 @@ const RegistrationPage = () => {
 	
 	return (
 		<StyledRegistrationPage>
-			<Typography variant="h5" m={2}>Страница авторизации</Typography>
+			<Typography variant="h5" m={2}>Страница регистрации</Typography>
 			<Container maxWidth="xs" sx={{display: "flex", flexDirection: "column", gap: "10px"}}>
 				<TextField label="Email" name="email" value={formData.email} onChange={changeHandler} error={invalidInputs.includes("email")} helperText="It should fit email format"/>
 				<TextField label="Username" name="username" value={formData.username} onChange={changeHandler} error={invalidInputs.includes("username")} helperText="it should be more than 4 symbols and less than 16"/>
 				<TextField label="First name" name="firstName" value={formData.firstName} onChange={changeHandler} error={invalidInputs.includes("firstName")} helperText="it should be more than 4 symbols and less than 16"/>
 				<TextField label="Last name" name="lastName" value={formData.lastName} onChange={changeHandler} error={invalidInputs.includes("lastName")} helperText="it should be more than 4 symbols and less than 16"/>
-				<TextField label="Password" name="password" value={formData.password} onChange={changeHandler} type="password" error={invalidInputs.includes("password")} helperText="It should contain uppercase and lowercase letters, numbers and should be more than 4 symbols"/>
+				<TextField label="Password" name="password" value={formData.password} onChange={changeHandler} type="password" error={invalidInputs.includes("password")} helperText="It should contain uppercase and lowercase letters, numbers and should be more than 4 symbols and both passwords should have the same value"/>
+				<TextField label="Repeat password" name="repeatedPassword" value={formData.repeatedPassword} onChange={changeHandler} type="password" error={invalidInputs.includes("password")} helperText="It should contain uppercase and lowercase letters, numbers and should be more than 4 symbols and both passwords should have the same value"/>
 				<Button onClick={submitHandler}>Зарегистрировать аккаунт</Button>
 				<Button component={Link} to="/auth">Auth page</Button>
 			</Container>
