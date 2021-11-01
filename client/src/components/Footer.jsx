@@ -6,13 +6,12 @@ import {
 import styled from "styled-components";
 
 const StyledBox = styled(Box)`
-	height: 20vh;
 `
 
 const Footer = () => {
 	return (
 		<StyledBox sx={{backgroundColor: "primary.main", color: "secondary.main"}}>
-			<Container maxWidth="md">
+			<Container maxWidth="xs">
 			
 			</Container>
 		</StyledBox>

@@ -1,7 +1,7 @@
 Tomorrow:
-1) Make profile settings page +
+1) Make chat page
 2) Study geolocation
-3) Add profile images adder
+3) Add profile images adder +
 
 Don't forget:
 1) Try to change profileId in address bar
@@ -9,3 +9,4 @@ Don't forget:
 3) Transfer to MUIstyled from styled-components
 4) Try to type in input "repeatedPassword" and don't type in "password"
 5) Fix grid on settings page
+6) Try to add icons to buttons

@@ -18,6 +18,7 @@ const Global = createGlobalStyle`
 	  padding: 0;
 	  box-sizing: border-box;
 	}
+	
 `
 
 const MainContent = styled.div`
@@ -26,26 +27,38 @@ const MainContent = styled.div`
 	margin: 0 auto 0;
 `;
 
+const Page = styled.div`
+	display: grid;
+	grid-template-areas:
+		"header"
+		"main-content"
+		"footer"
+	;
+	grid-template-rows: auto 1fr 20vh;
+`
+
 function App() {
 	const isAuth = useSelector(state => state.token);
 	
     return (
     <BrowserRouter>
 	    <Global />
-	    { isAuth ? <Header/> : <></> }
-	    <MainContent>
-	        <Switch>
-	            <Route path="/auth" component={AuthPage}/>
-	            <Route path="/registration" component={RegistrationPage}/>
-	            <Route path="/settings" component={SettingsPage}/>
-	            <Route path="/browsing" component={BrowsingPage}/>
-	            <Route path="/chat" component={ChatPage}/>
-	            <Route path="/notifications" component={NotificationPage}/>
-	            <Route path="/profile/:id" component={ProfilePage}/>
-	            <Redirect to="/auth"/>
-	        </Switch>
-	    </MainContent>
-	    <Footer/>
+	    <Page>
+		    { isAuth ? <Header/> : <div></div> }
+		    <MainContent>
+		        <Switch>
+		            <Route path="/auth" component={AuthPage}/>
+		            <Route path="/registration" component={RegistrationPage}/>
+		            <Route path="/settings" component={SettingsPage}/>
+		            <Route path="/browsing" component={BrowsingPage}/>
+		            <Route path="/chat" component={ChatPage}/>
+		            <Route path="/notifications" component={NotificationPage}/>
+		            <Route path="/profile/:id" component={ProfilePage}/>
+		            <Redirect to="/auth"/>
+		        </Switch>
+		    </MainContent>
+		    <Footer/>
+	    </Page>
     </BrowserRouter>
     );
 }

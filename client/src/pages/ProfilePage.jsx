@@ -4,32 +4,40 @@ import { Link, Redirect, useParams } from "react-router-dom";
 import {Image, LinearProgressWithLabel} from "../components/UI/UI";
 import testImage from "../test.png"
 import useHttp from "../hooks/useHttp";
-import UserInfo from "../components/UserInfo";
+import ProfileInfo from "../components/ProfileInfo";
 import ProfileImages from "../components/ProfileImages"
 import { Container, Button, Box } from "@mui/material";
 import { styled as MUIstyled } from "@mui/system";
 import { useSelector } from "react-redux";
 
 const StyledProfilePage = styled.div`
-	background-color: lightblue;
+	background-color: black;
 	width: 100%;
 	display: grid;
 	grid-gap: 15px;
 	grid-template-columns: 30% 1fr;
-	grid-template-rows: auto minmax(300px, 1fr);
+	grid-template-rows: auto 300px;
 	grid-template-areas:
 		"aside info"
 		"images images";
+`
+
+const ProfileAside = styled.aside`
+	grid-area: aside;
+`
+
+const StyledProfileInfo = styled(ProfileInfo)`
+	grid-area: info;
+`
+
+const StyledProfileImages = styled(Box)`
+	grid-area: images;
 `
 
 const StyledButtonsContainer = MUIstyled(Container)`
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
-`
-
-const ProfileAside = styled.aside`
-	grid-area: aside;
 `
 
 const ProfileAvatar = styled.div`
@@ -40,20 +48,8 @@ const ProfileActions = styled.div`
 
 `
 
-const ProfileFameRating = styled.div`
-
-`
-
 const Geolocation = styled.div`
 
-`
-
-const ProfileInfo = styled(UserInfo)`
-	grid-area: info;
-`
-
-const StyledProfileImages = styled(ProfileImages)`
-	grid-area: images;
 `
 
 const ProfilePage = () => {
@@ -93,9 +89,11 @@ const ProfilePage = () => {
 				</ProfileActions>
 			</ProfileAside>
 			
-			<ProfileInfo/>
+			<StyledProfileInfo />
 			
-			<StyledProfileImages profileImages={profileImages}/>
+			<StyledProfileImages>
+				<ProfileImages profileImages={profileImages} />
+			</StyledProfileImages>
 		</StyledProfilePage>
 	);
 };

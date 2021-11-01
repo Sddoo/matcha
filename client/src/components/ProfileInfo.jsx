@@ -7,7 +7,7 @@ import { styled as MUIstyled } from "@mui/system";
 import UsersCarousel from "./UsersCarousel";
 import testImage from "../test.png"
 
-const StyledUserInfo = styled.div`
+const ProfileInfoContainer = styled.div`
 	background-color: lightseagreen;
 	padding: 20px 40px;
 	display: flex;
@@ -19,15 +19,7 @@ const UserTitle = styled.div`
 	gap: 10px;
 `
 
-const Visitors = styled.div`
-
-`
-
-const Likers = styled.div`
-
-`
-
-const UserInfo = () => {
+const ProfileInfo = () => {
 	const [modifyMode, setModifyMode] = useState(false);
 	const [infoValues, setInfoValues] = useState({
 		gender: "Male",
@@ -65,7 +57,7 @@ const UserInfo = () => {
 	const changeHandler = (event) => setInfoValues({...infoValues, [event.target.name]: event.target.value});
 	
 	return (
-		<StyledUserInfo>
+		<ProfileInfoContainer>
 			<UserTitle>
 				<Typography variant="h5" m={1}>Vladislav Portnov</Typography>
 				<Typography>online</Typography>
@@ -159,19 +151,16 @@ const UserInfo = () => {
 				<Typography>People, who are interested in you</Typography>
 			</Divider>
 			
-			<Visitors>
-				<UsersCarousel users={users}/>
-			</Visitors>
+			<UsersCarousel users={users}/>
 			
 			<Divider sx={{m: "20px 0 10px 0"}}>
 				<Typography>People, who liked you</Typography>
 			</Divider>
 			
-			<Likers>
-				<UsersCarousel users={users}/>
-			</Likers>
-		</StyledUserInfo>
+			<UsersCarousel users={users}/>
+			
+		</ProfileInfoContainer>
 	);
 };
 
-export default UserInfo;
+export default ProfileInfo;

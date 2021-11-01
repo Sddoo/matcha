@@ -16,7 +16,7 @@ const UsersCarousel = ({users}) => {
 			<StyledCardActionArea sx={{height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-start"}}>
 				<CardMedia
 					component="img"
-					height="40%"
+					height="50%"
 					image={user.image}
 					alt="kit"
 				/>
