@@ -1,9 +1,8 @@
 import React from 'react';
-import styled from "styled-components"
+import { styled } from "@mui/system";
 import {Image} from '../components/UI/UI'
-import Field from '../components/Field'
 
-const StyledUserProfilePreview = styled.div`
+const StyledUserProfilePreview = styled("div")`
 	display: grid;
 	margin: 10px 0;
 	grid-template-rows: 20px 1fr;
@@ -14,27 +13,29 @@ const StyledUserProfilePreview = styled.div`
 		"image info";
 `
 
-const UserProfilePreviewImage = styled.div`
+const UserProfilePreviewImage = styled("div")`
 	grid-area: image;
 	display: flex;
 	align-items: center;
 `
 
-const UserProfilePreviewName = styled.div`
+const UserProfilePreviewName = styled("div")`
 	grid-area: name;
 	text-align: center;
 `
 
-const UserProfilePreviewInfo = styled.div`
+const UserProfilePreviewInfo = styled("div")`
 	grid-area: info;
 	display: flex;
 	justify-content: space-around;
 	flex-wrap: wrap;
 `
 
-const UserProfilePreviewInfoField = styled(Field)`
-	flex: 0 0 33%;
+const UserProfilePreviewInfoField = styled("div")`
+	display: flex;
 	flex-direction: column;
+	flex-wrap: wrap;
+	flex: 0 0 33%;
 	justify-content: flex-start;
 	text-align: center;
 `

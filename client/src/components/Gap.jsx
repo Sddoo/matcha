@@ -1,20 +1,17 @@
 import React from 'react';
 import styled from "styled-components"
-import Input from "./UI/Input";
+import {
+	TextField
+} from "@mui/material";
 
 const StyledGap = styled.div`
 `
 
-const GapTitle = styled.div`
-
-`
-
 const GapValues = styled.div`
-
-`
-
-const GapInput = styled(Input)`
-	width: 50px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 `
 
 const Gap = ({name, values, changeHandler}) => {
@@ -23,10 +20,9 @@ const Gap = ({name, values, changeHandler}) => {
 	
 	return (
 		<StyledGap>
-			<GapTitle>{name.charAt(0).toUpperCase() + name.slice(1)}</GapTitle>
 			<GapValues>
-				From <GapInput name={start} type="number" value={values[start]} onChange={changeHandler}/>
-				to <GapInput name={end} type="number" value={values[end]} onChange={changeHandler}/>
+				From <TextField name={start} type="number" value={values[start]} onChange={changeHandler} size={"small"} sx={{maxWidth: "100px", m: "0 5px"}}/>
+				to <TextField name={end} type="number" value={values[end]} onChange={changeHandler} size={"small"} sx={{maxWidth: "100px", m: "0 5px"}}/>
 			</GapValues>
 		</StyledGap>
 	);

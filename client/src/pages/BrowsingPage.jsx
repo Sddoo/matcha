@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import {Input, Button, Title2} from "../components/UI/UI";
+import { styled } from "@mui/system";
 import Gap from "../components/Gap";
 import Field from "../components/Field";
 import UserProfilePreview from "../components/UserProfilePreview";
 import testImage from "../testImage";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import {
+	Button,
+	TextField,
+	RadioGroup,
+	Radio,
+	FormLabel,
+	FormControl,
+	FormControlLabel,
+	Typography
+} from "@mui/material";
 
-const StyledBrowsingPage = styled.div`
+const StyledBrowsingPage = styled("div")`
 	display: grid;
 	grid-template-columns: 1fr 20%;
 	grid-template-rows: 1fr auto;
@@ -17,32 +26,34 @@ const StyledBrowsingPage = styled.div`
 		"response options";
 `
 
-const Request = styled.div`
+const Request = styled("div")`
 	grid-area: request;
 	background-color: darkkhaki;
 	padding: 20px;
 `
 
-const MainRequest = styled.div`
+const MainRequest = styled("div")`
 	margin-bottom: 10px;
 	text-align: center;
 `
 
-const AdvancedRequest = styled.div`
+const AdvancedRequest = styled("div")`
 	display: flex;
 	justify-content: space-around;
 	flex-wrap: wrap;
 	width: 80%;
 	margin: 0 auto;
+	gap: 15px;
 `
 
 const RequestField = styled(Field)`
 	flex-direction: column;
 	text-align: center;
-	flex: 0 0 33%;
+	flex-basis: 30%;
+	flex-grow: 1;
 `
 
-const Response = styled.div`
+const Response = styled("div")`
 	grid-area: response;
 	display: flex;
 	flex-direction: column;
@@ -51,26 +62,9 @@ const Response = styled.div`
 	background-color: darkcyan;
 `
 
-const Options = styled.div`
-	grid-area: options;
-	background-color: darkgoldenrod;
-`
-
-const Sort = styled.div`
-
-`
-
-const Filter = styled.div`
-
-`
-
-const OptionField = styled(Field)`
-	justify-content: space-between;
-`
-
 const BrowsingPage = () => {
 	const [isAdvancedSearch, setIsAdvancedSearch] = useState(false);
-	const [formValues, setFormValues] = useState({
+	const [filterOptions, setFilterOptions] = useState({
 		ageStart: '',
 		ageEnd: '',
 		fameStart: '',
@@ -78,89 +72,87 @@ const BrowsingPage = () => {
 		location: '',
 		tags: []
 	});
-	const testUserProfilePreview = {
+	const [sortOptions, setSortOptions] = useState({
+		field: 'age',
+		order: 'asc',
+	});
+	const testUserProfilePreviewArr = Array(10).fill({
 		image: testImage,
 		name: "Vladislav Portnov",
 		age: 35,
 		fameRating: 55,
 		location: "Rostov-on-Don",
 		interests: ["test", "hs"]
-	}
+	});
 	
 	if (!useSelector(state => state.token)) { // переделать эту парашу
 		return <Redirect to="/auth"/>
 	}
 	
-	const changeHandler = (e) => setFormValues({...formValues, [e.target.name]: e.target.value})
+	const changeFilter = (e) => setFilterOptions({...filterOptions, [e.target.name]: e.target.value})
+	
+	const changeSort = (e) => setSortOptions({...sortOptions, [e.target.name]: e.target.value});
 	
 	return (
 		<StyledBrowsingPage>
+			
 			<Request>
 				<MainRequest>
-					<Input/>
-					<Button>Search!</Button>
+					<TextField size={"small"}/>
+					<Button>Search</Button>
 					<Button onClick={() => setIsAdvancedSearch(!isAdvancedSearch)}>{isAdvancedSearch ? "Hide" : "Show"} advanced options</Button>
 				</MainRequest>
 				{isAdvancedSearch &&
 					<AdvancedRequest>
 						<RequestField>
-							<Gap name="age" changeHandler={changeHandler} values={formValues}/>
+							<Typography>Age</Typography>
+							<Gap name="age" changeHandler={changeFilter} values={filterOptions}/>
 						</RequestField>
 						<RequestField>
-							<Gap name="fame" changeHandler={changeHandler} values={formValues}/>
+							<Typography>Fame Rating</Typography>
+							<Gap name="fame" changeHandler={changeFilter} values={filterOptions}/>
 						</RequestField>
 						<RequestField>
-							<div>Location</div>
-							<Input name="location" value={formValues.location} onChange={changeHandler}/>
+							<Typography>Location</Typography>
+							<TextField name="location" value={filterOptions.location} onChange={changeFilter} size="small"/>
 						</RequestField>
 						<RequestField>
-							<div>Interests</div>
-							<Input name="tags" value={formValues.tags} onChange={changeHandler}/>
+							<Typography>Interests</Typography>
+							<TextField name="tags" value={filterOptions.tags} onChange={changeFilter} size="small" helperText={"Examples: #geek, #animals, #gameofthrones"}/>
 						</RequestField>
 					</AdvancedRequest>
 				}
 			</Request>
+			
 			<Response>
-				<UserProfilePreview userInfo={testUserProfilePreview}/>
-				<UserProfilePreview userInfo={testUserProfilePreview}/>
-				<UserProfilePreview userInfo={testUserProfilePreview}/>
-				<UserProfilePreview userInfo={testUserProfilePreview}/>
-				<UserProfilePreview userInfo={testUserProfilePreview}/>
-				<UserProfilePreview userInfo={testUserProfilePreview}/>
-				<UserProfilePreview userInfo={testUserProfilePreview}/>
-				<UserProfilePreview userInfo={testUserProfilePreview}/>
+				{testUserProfilePreviewArr.map((elem, i) => <UserProfilePreview key={i} userInfo={elem}/>)}
 			</Response>
-			<Options>
-				<Sort>
-					<Title2>Sort</Title2>
-					<OptionField>
-						<Input type="radio" name="sortField" value="age"/>
-						<label>Age</label>
-					</OptionField>
-					<OptionField>
-						<Input type="radio" name="sortField" value="location"/>
-						<label>Location</label>
-					</OptionField>
-					<OptionField>
-						<Input type="radio" name="sortField" value="fameRating"/>
-						<label>Fame rating</label>
-					</OptionField>
-					<OptionField>
-						<Input type="radio" name="sortField" value="tags"/>
-						<label>Tags</label>
-					</OptionField>
-					<Title2>Sort order</Title2>
-					<OptionField>
-						<Input type="radio" name="sortOrder" value="asc"/>
-						<label>Ascending</label>
-					</OptionField>
-					<OptionField>
-						<Input type="radio" name="sortOrder" value="desc"/>
-						<label>Descending</label>
-					</OptionField>
-					<Button>Sort!</Button>
-				</Sort>
-			</Options>
+			
+			<FormControl>
+				<FormLabel>Sort field</FormLabel>
+				<RadioGroup
+					aria-label="sortField"
+					value={sortOptions.field}
+					name="field"
+					onChange={changeSort}>
+					<FormControlLabel value="age" control={<Radio/>} label={"Age"}/>
+					<FormControlLabel value="location" control={<Radio/>} label={"Location"}/>
+					<FormControlLabel value="fameRating" control={<Radio/>} label={"Fame Rating"}/>
+					<FormControlLabel value="tags" control={<Radio/>} label={"Tags"}/>
+				</RadioGroup>
+				
+				<FormLabel>Sort order</FormLabel>
+				<RadioGroup
+					aria-label="sortOrder"
+					value={sortOptions.order}
+					name="order"
+					onChange={changeSort}>
+					<FormControlLabel value="asc" control={<Radio/>} label={"Ascending"}/>
+					<FormControlLabel value="desc" control={<Radio/>} label={"Descending"}/>
+				</RadioGroup>
+				
+				<Button>Sort!</Button>
+			</FormControl>
 		</StyledBrowsingPage>
 	);
 };

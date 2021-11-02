@@ -1,7 +1,9 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import styled, {createGlobalStyle} from "styled-components";
+import { styled } from "@mui/system";
+import { Container } from "@mui/material";
+import {createGlobalStyle} from "styled-components";
 import AuthPage from "./pages/AuthPage.jsx";
 import RegistrationPage from "./pages/RegistrationPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
@@ -21,20 +23,20 @@ const Global = createGlobalStyle`
 	
 `
 
-const MainContent = styled.div`
-	width: 65%;
+const MainContent = styled(Container)`
+	width: 1200px;
 	height: auto;
 	margin: 0 auto 0;
 `;
 
-const Page = styled.div`
+const Page = styled("div")`
 	display: grid;
 	grid-template-areas:
 		"header"
 		"main-content"
 		"footer"
 	;
-	grid-template-rows: auto 1fr 20vh;
+	grid-template-rows: 75px 1fr 200px;
 `
 
 function App() {
