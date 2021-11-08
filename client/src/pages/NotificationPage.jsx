@@ -21,7 +21,7 @@ const NotificationPage = () => {
 		id: 1,
 		image: testImage,
 		name: "Vladislav Portnov",
-		message: "Vladislav Portnov liked ur avatar"
+		message: "Vladislav Portnov liked you"
 	});
 	
 	if (!useSelector(state => state.token)) { // переделать эту парашу

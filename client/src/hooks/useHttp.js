@@ -3,8 +3,10 @@ import {useCallback, useState} from 'react';
 const useHttp = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
+	const defaultHeaders = {
+	};
 	
-	const request = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
+	const request = useCallback(async (url, method = 'GET', body = null, headers = defaultHeaders) => {
 		try {
 			setIsLoading(true);
 			const response = await fetch(url, {method, body, headers});

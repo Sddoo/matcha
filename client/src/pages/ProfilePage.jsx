@@ -4,6 +4,7 @@ import { Link, Redirect, useParams } from "react-router-dom";
 import {Image, LinearProgressWithLabel} from "../components/UI/UI";
 import testImage from "../test.png"
 import useHttp from "../hooks/useHttp";
+import useGeolocation from "../hooks/useGeolocation";
 import ProfileInfo from "../components/ProfileInfo";
 import ProfileImages from "../components/ProfileImages"
 import { Container, Button, Box } from "@mui/material";
@@ -68,6 +69,8 @@ const ProfilePage = () => {
 	if (!token) { // переделать эту парашу
 		return <Redirect to="/auth"/>
 	}
+	
+	useGeolocation(); // ??
 	
 	return (
 		<StyledProfilePage>

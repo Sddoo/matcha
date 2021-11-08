@@ -51,6 +51,9 @@ const RegistrationPage = () => {
 		setFormData({...formData, [event.target.name]: event.target.value});
 	}
 	
+	
+	console.log("testRender");
+	
 	return (
 		<StyledRegistrationPage>
 			<Typography variant="h5" m={2}>Страница регистрации</Typography>

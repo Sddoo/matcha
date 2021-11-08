@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components"
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Button, Stack, Typography, Select, MenuItem, TextField, Divider } from "@mui/material";
 import { styled as MUIstyled } from "@mui/system";
 import UsersCarousel from "./UsersCarousel";
+import useHttp from "../hooks/useHttp";
 import testImage from "../test.png"
+import AutoComplete from "../components/AutoComplete";
 
 const ProfileInfoContainer = styled.div`
 	background-color: lightseagreen;
@@ -27,11 +29,12 @@ const ProfileInfo = () => {
 		sexPref: "Female",
 		biography: "test",
 		interests: "#geek",
-		location: "Moscow"
+		location: ""
 	});
 	const [oldInfoValues, setOldInfoValues] = useState({});
 	const {profileId, token} = useSelector(state => state);
 	const paramId = useParams().id;
+	const {request} = useHttp();
 	const owner = paramId === profileId;
 	const users = Array(10).fill(
 		{
@@ -41,7 +44,6 @@ const ProfileInfo = () => {
 			interests: "#geek"
 		}
 	);
-	
 	const modifyInfo = () => {
 		setOldInfoValues(infoValues);
 		setModifyMode(true);
@@ -54,7 +56,14 @@ const ProfileInfo = () => {
 		setModifyMode(false);
 	}
 	
-	const changeHandler = (event) => setInfoValues({...infoValues, [event.target.name]: event.target.value});
+	// useEffect( async () => {
+	// 	const data = await request(`https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJWTi8xgGyEmsRgK0yFmh9AQU&key=AIzaSyA3aRZfbMCWSDpf7P7qBlIIZl1o78YpwAo`);
+	// 	console.log("testData", data);
+	// }, [infoValues.country]);
+	
+	const changeHandler = async (event) => setInfoValues({...infoValues, [event.target.name]: event.target.value})
+	
+	console.log("testRender");
 	
 	return (
 		<ProfileInfoContainer>
@@ -141,7 +150,7 @@ const ProfileInfo = () => {
 				<Stack justifyContent="space-between" direction="row">
 					<Typography>Location</Typography>
 					{modifyMode
-						? <TextField value={infoValues.location} name="location" onChange={changeHandler} size="small"/>
+						? <AutoComplete value={infoValues.location} name="location" onChange={changeHandler} size="small" sx={{width: "300px"}}/>
 						: <Typography sx={{width: "300px", textAlign: "right"}}>{infoValues.location}</Typography>
 					}
 				</Stack>

@@ -1,5 +1,10 @@
 Tomorrow:
-1) Study geolocation
+1) Add gps
+2) Add geolocation without user's knowledge (maybe server-side)
+3) Add geo autocomplete
+4) Reusable tags
+5) usePagination
+6) all pages notifications
 
 Don't forget:
 1) Try to change profileId in address bar
@@ -8,3 +13,9 @@ Don't forget:
 4) Try to type in input "repeatedPassword" and don't type in "password"
 5) Fix grid on settings page
 6) Try to add icons to buttons
+
+Study:
+1) CORS
+
+https://www.ipify.org
+https://freegeoip.app/#documentation
