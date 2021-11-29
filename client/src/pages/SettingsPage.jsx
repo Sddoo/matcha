@@ -1,18 +1,20 @@
 import React, {useState} from 'react';
-import styled from 'styled-components';
 import Field from '../components/Field';
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Stack, Typography, Button, TextField, Divider, Grid, Box } from "@mui/material";
-import { styled as MUIstyled } from "@mui/system";
+import { styled } from "@mui/system";
 import validateInputs from "../utils/inputValidation";
 import useHttp from "../hooks/useHttp";
 
-const StyledSettingsPage = styled.div`
-	background-color: lightblue;
-	height: 100vh;
-	padding: 30px 10%;
-`
+const StyledSettingsPage = styled(Box)(({theme}) => ({
+	backgroundColor: theme.palette.elemBackground.main,
+	border: `1px solid ${theme.palette.border.main}`,
+	borderRadius: "5px",
+	minHeight: "80vh",
+	height: "auto",
+	padding: "30px",
+}));
 
 const StyledField = styled(Field)`
 	width: 60%;
@@ -23,7 +25,7 @@ const StyledField = styled(Field)`
 	}
 `
 
-const StyledSettingsContainer = MUIstyled(Stack)`
+const StyledSettingsContainer = styled(Stack)`
 `
 
 const SettingsPage = () => {
@@ -62,15 +64,12 @@ const SettingsPage = () => {
 	}
 	
 	const submitHandler = () => {
-		const invalidInputsArr = validateInputs(inputsData, { emptyValid: true });
-		
-		console.log("invalidInputsArr: ", invalidInputsArr);
+		const invalidInputsArr = validateInputs(inputsData, { emptyValid: true }); // add validation only for opened inputs
 		
 		if (invalidInputsArr.length) {
 			setInvalidInputs(invalidInputsArr);
 		} else {
 			setInvalidInputs([]);
-			console.log("testInputs", inputsData);
 		}
 	}
 	
@@ -210,7 +209,6 @@ const SettingsPage = () => {
 									type="password"
 									onChange={changeHandler}
 									error={invalidInputs.includes("newPassword")}
-									helperText="It should contain uppercase and lowercase letters, numbers and should be more than 4 symbols and both passwords should have the same value"
 									size="small"/>
 							</Grid>
 							<Grid item xs={4}> </Grid>

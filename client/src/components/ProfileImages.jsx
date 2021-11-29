@@ -1,35 +1,56 @@
 import React, {useState} from 'react';
-import testImage from "../test.png";
-import { Stack, Card, CardActions, CardMedia, Box, Button } from "@mui/material";
+import testImage from "../test.jpg"
+import { Stack, Card, CardActions, CardMedia, Box, Button, IconButton } from "@mui/material";
 import { styled } from "@mui/system";
+import DeleteIcon from '@mui/icons-material/Delete';
+import AccountBoxRounded from '@mui/icons-material/AccountBoxRounded';
 
-const ProfileImagesContainer = styled(Stack)`
-	flex-direction: column;
-	background-color: lightgreen;
-`
+const ProfileImagesContainer = styled(Stack)(({theme}) => ({
+	flexDirection: "column",
+	padding: "5px",
+	border: `1px solid ${theme.palette.border.main}`,
+	borderRadius: "5px",
+	backgroundColor: theme.palette.elemBackground.main,
+}));
 
-const ProfileImage = styled(Card)`
+const ButtonContainer = styled(Box)(({theme}) => ({
+	textAlign: "right",
+	
+	[theme.breakpoints.down('lg')]: {
+		textAlign: "center",
+	},
+}));
 
-`
-
-const ButtonContainer = styled(Box)`
-	text-align: right;
-`
-
-const Cards = styled(Stack)`
-	flex-direction: row;
-	justify-content: center;
-	gap: 20px;
-`
+const Cards = styled(Stack)(({theme}) => ({
+	flexDirection: "row",
+	justifyContent: "center",
+	gap: "20px",
+	marginBottom: "10px",
+	
+	[theme.breakpoints.down('lg')]: {
+		flexDirection: "column"
+	},
+}));
 
 const StyledCard = styled(Card)`
-	width: 200px;
 `
 
-const StyledCardMedia = styled(CardMedia)`
-	height: 200px;
-	width: 200px;
-`
+const StyledCardMedia = styled(CardMedia)(({theme}) => ({
+	height: "200px",
+	width: "100%",
+	margin: "auto",
+	
+	[theme.breakpoints.down('lg')]: {
+		height: "300px",
+	},
+}))
+
+const StyledCardActions = styled(CardActions)`
+	padding: 0;
+	margin: 5px 0;
+	display: flex;
+	justify-content: space-around;
+`;
 
 const UploadInput = styled("input")`
 	display: none;
@@ -93,10 +114,11 @@ const ProfileImages = () => {
 							component="img"
 							image={elem.img}
 							alt="kit"/>
-						{modifyMode && <CardActions sx={{p: 0}}>
-							<Button size={"small"}>Choose as profile avatar</Button>
-							<Button size={"small"} onClick={() => deleteImage(elem.id)}>Delete image</Button>
-						</CardActions>}
+						{modifyMode &&
+						<StyledCardActions>
+							<Button size={"small"} variant={"contained"}> <AccountBoxRounded/> </Button>
+							<Button size={"small"} variant={"contained"} onClick={() => deleteImage(elem.id)}> <DeleteIcon/> </Button>
+						</StyledCardActions>}
 					</StyledCard>
 				)}
 			</Cards>

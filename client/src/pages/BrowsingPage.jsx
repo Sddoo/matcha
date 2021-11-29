@@ -7,60 +7,91 @@ import testImage from "../testImage";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import {
-	Button,
-	TextField,
-	RadioGroup,
-	Radio,
-	FormLabel,
-	FormControl,
-	FormControlLabel,
-	Typography
+	Button, TextField, RadioGroup, Radio, FormLabel, FormControl, FormControlLabel, Typography, Box, Divider
 } from "@mui/material";
 
-const StyledBrowsingPage = styled("div")`
-	display: grid;
-	grid-template-columns: 1fr 20%;
-	grid-template-rows: 1fr auto;
-	grid-template-areas:
+const StyledBrowsingPage = styled("div")(({theme}) => ({
+	display: "grid",
+	gridTemplateColumns: "1fr 20%",
+	gridTemplateAreas: `
 		"request request"
-		"response options";
-`
+		"response options"
+	`,
+	gap: "10px",
+	
+	[theme.breakpoints.down('lg')]: {
+		gridTemplateColumns: "100%",
+		gridTemplateAreas: `
+			"request"
+			"options"
+			"response"
+		`,
+	},
+}))
 
-const Request = styled("div")`
-	grid-area: request;
-	background-color: darkkhaki;
-	padding: 20px;
-`
+const Request = styled(Box)(({theme}) => ({
+	gridArea: "request",
+	padding: "20px",
+	backgroundColor: theme.palette.elemBackground.main,
+	border: `1px solid ${theme.palette.border.main}`,
+	borderRadius: "5px"
+}));
 
-const MainRequest = styled("div")`
-	margin-bottom: 10px;
-	text-align: center;
-`
+const MainRequest = styled("div")(({theme}) => ({
+	display: "flex",
+	justifyContent: "center",
+	alignItems: "center",
+	marginBottom: "10px",
+	textAlign: "center",
+}));
 
-const AdvancedRequest = styled("div")`
-	display: flex;
-	justify-content: space-around;
-	flex-wrap: wrap;
-	width: 80%;
-	margin: 0 auto;
-	gap: 15px;
-`
+const MainInput = styled(TextField)(({theme}) => ({
+}))
 
-const RequestField = styled(Field)`
-	flex-direction: column;
-	text-align: center;
-	flex-basis: 30%;
-	flex-grow: 1;
-`
+const AdvancedRequest = styled("div")(({theme}) => ({
+	display: "flex",
+	justifyContent: "space-around",
+	flexWrap: "wrap",
+	margin: "0 auto",
+	gap: "15px",
+	
+	[theme.breakpoints.down('lg')]: {
+		flexDirection: "column",
+		justifyContent: "flex-start",
+	}
+}));
 
-const Response = styled("div")`
-	grid-area: response;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	padding: 20px;
-	background-color: darkcyan;
-`
+const RequestField = styled(Field)(({theme}) => ({
+	flexDirection: "column",
+	textAlign: "center",
+	flexBasis: "30%",
+	flexGrow: "1",
+}))
+
+const StyledRadioGroup = styled(RadioGroup)(({theme}) => ({
+	[theme.breakpoints.down('lg')]: {
+		flexDirection: "row",
+		justifyContent: "center",
+	}
+}))
+
+const Response = styled("div")(({theme}) => ({
+	backgroundColor: theme.palette.elemBackground.main,
+	border: `1px solid ${theme.palette.border.main}`,
+	borderRadius: "5px",
+	gridArea: "response",
+	display: "flex",
+	flexDirection: "column",
+	gap: "10px",
+	padding: "10px"
+}));
+
+const StyledFormControl = styled(FormControl)(({theme}) => ({
+	backgroundColor: theme.palette.elemBackground.main,
+	border: `1px solid ${theme.palette.border.main}`,
+	borderRadius: "5px",
+	padding: "10px"
+}));
 
 const BrowsingPage = () => {
 	const [isAdvancedSearch, setIsAdvancedSearch] = useState(false);
@@ -98,9 +129,9 @@ const BrowsingPage = () => {
 			
 			<Request>
 				<MainRequest>
-					<TextField size={"small"}/>
-					<Button>Search</Button>
-					<Button onClick={() => setIsAdvancedSearch(!isAdvancedSearch)}>{isAdvancedSearch ? "Hide" : "Show"} advanced options</Button>
+					<MainInput size={"small"}/>
+					<Button size={"small"}>Search</Button>
+					<Button size={"small"} onClick={() => setIsAdvancedSearch(!isAdvancedSearch)}>{isAdvancedSearch ? "Hide" : "Show"} advanced options</Button>
 				</MainRequest>
 				{isAdvancedSearch &&
 					<AdvancedRequest>
@@ -125,12 +156,17 @@ const BrowsingPage = () => {
 			</Request>
 			
 			<Response>
-				{testUserProfilePreviewArr.map((elem, i) => <UserProfilePreview key={i} userInfo={elem}/>)}
+				{testUserProfilePreviewArr.map((elem, i) => (
+					<>
+						<UserProfilePreview key={i} userInfo={elem}/>
+						<Divider sx={{m: "10px 0 10px 0"}} />
+					</>
+				))}
 			</Response>
 			
-			<FormControl>
+			<StyledFormControl>
 				<FormLabel>Sort field</FormLabel>
-				<RadioGroup
+				<StyledRadioGroup
 					aria-label="sortField"
 					value={sortOptions.field}
 					name="field"
@@ -139,20 +175,20 @@ const BrowsingPage = () => {
 					<FormControlLabel value="location" control={<Radio/>} label={"Location"}/>
 					<FormControlLabel value="fameRating" control={<Radio/>} label={"Fame Rating"}/>
 					<FormControlLabel value="tags" control={<Radio/>} label={"Tags"}/>
-				</RadioGroup>
+				</StyledRadioGroup>
 				
 				<FormLabel>Sort order</FormLabel>
-				<RadioGroup
+				<StyledRadioGroup
 					aria-label="sortOrder"
 					value={sortOptions.order}
 					name="order"
 					onChange={changeSort}>
 					<FormControlLabel value="asc" control={<Radio/>} label={"Ascending"}/>
 					<FormControlLabel value="desc" control={<Radio/>} label={"Descending"}/>
-				</RadioGroup>
+				</StyledRadioGroup>
 				
 				<Button>Sort!</Button>
-			</FormControl>
+			</StyledFormControl>
 		</StyledBrowsingPage>
 	);
 };

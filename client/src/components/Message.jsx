@@ -1,11 +1,10 @@
 import React from 'react';
 import { styled } from "@mui/system";
 import { CardMedia, Typography, Box } from "@mui/material";
-import testImage from "../test.png";
+import testImage from "../test1.png";
 
 const MessageBox = styled(Box)`
 	display: grid;
-	background-color: lightgreen;
 	width: 100%;
 	height: 100%;
 	grid-template-columns: auto 1fr;
@@ -18,7 +17,7 @@ const MessageBox = styled(Box)`
 const MessageImage = styled(CardMedia)`
 	grid-area: image;
 	object-fit: cover;
-	height: ${props => props.messageType === "preview" ? "100%" : "80px"};
+	height: ${props => props.messageType === "preview" ? "" : "80px"};
 	width: ${props => props.messageType === "preview" ? "" : "80px"};
 `
 

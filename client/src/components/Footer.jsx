@@ -6,6 +6,7 @@ import {
 import styled from "styled-components";
 
 const StyledBox = styled(Box)`
+	margin-top: 10px;
 `
 
 const Footer = () => {

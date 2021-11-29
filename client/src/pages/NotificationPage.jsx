@@ -1,19 +1,20 @@
 import React from 'react';
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box, Divider } from "@mui/material";
 import { styled } from "@mui/system";
 import Message from "../components/Message";
 import testImage from "../testImage";
 
-
-const StyledNotificationPage = styled(Box)`
-	min-height: 100vh;
-	background-color: darkmagenta;
-	display: grid;
-	grid-auto-rows: fit-content(200px);
-	gap: 5px;
-`
+const StyledNotificationPage = styled(Box)(({theme}) => ({
+	minHeight: "100vh",
+	display: "grid",
+	gridAutoRows: "fit-content(200px)",
+	gap: "5px",
+	backgroundColor: theme.palette.elemBackground.main,
+	border: `1px solid ${theme.palette.border.main}`,
+	borderRadius: "5px"
+}));
 
 
 const NotificationPage = () => {
@@ -30,7 +31,12 @@ const NotificationPage = () => {
 	
 	return (
 		<StyledNotificationPage>
-			{NotificationInfo.map((elem, i) => <Message key={i} messageInfo={elem} messageType={"chat"}/>)}
+			{NotificationInfo.map((elem, i) => (
+				<>
+					<Message key={i} messageInfo={elem} messageType={"chat"}/>
+					<Divider/>
+				</>
+			))}
 		</StyledNotificationPage>
 	);
 };

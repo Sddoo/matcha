@@ -39,7 +39,7 @@ const CarouselContent = styled(Box)`
 	z-index: 0;
 	display: flex;
 	flex-direction: row;
-	background-color: lightcoral;
+	//background-color: lightcoral;
 	transition: left 0.5s linear;
 	padding: 5px !important;
 `

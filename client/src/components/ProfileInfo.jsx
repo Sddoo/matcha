@@ -1,25 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import styled from "styled-components"
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Button, Stack, Typography, Select, MenuItem, TextField, Divider } from "@mui/material";
-import { styled as MUIstyled } from "@mui/system";
+import { Button, Stack, Typography, Select, MenuItem, TextField, Divider, Box } from "@mui/material";
+import { styled } from "@mui/system";
 import UsersCarousel from "./UsersCarousel";
 import useHttp from "../hooks/useHttp";
-import testImage from "../test.png"
+import testImage from "../test.jpg"
 import AutoComplete from "../components/AutoComplete";
+import useGeolocation from "../hooks/useGeolocation";
 
-const ProfileInfoContainer = styled.div`
-	background-color: lightseagreen;
-	padding: 20px 40px;
-	display: flex;
-	flex-direction: column;
-`
+const ProfileInfoContainer = styled("div")(({theme}) => ({
+	backgroundColor: theme.palette.elemBackground.main,
+	border: `1px solid ${theme.palette.border.main}`,
+	borderRadius: "5px",
+	padding: "20px 40px",
+	display: "flex",
+	flexDirection: "column",
+}));
 
-const UserTitle = styled.div`
-	display: flex;
-	gap: 10px;
-`
+const UserTitle = styled("div")(({theme}) => ({
+}))
+
+const InfoField = styled(Stack)(({theme}) => ({
+	flexDirection: "row",
+	justifyContent: "space-between",
+	margin: "5px 0",
+	
+	[theme.breakpoints.down('sm')]: {
+		flexDirection: "column",
+		alignContent: "center",
+		textAlign: "center",
+	}
+}))
+
+const InfoValue = styled(Typography)`
+`;
 
 const ProfileInfo = () => {
 	const [modifyMode, setModifyMode] = useState(false);
@@ -29,7 +44,9 @@ const ProfileInfo = () => {
 		sexPref: "Female",
 		biography: "test",
 		interests: "#geek",
-		location: ""
+		location: {
+			description: "Rostov-on-Don"
+		}
 	});
 	const [oldInfoValues, setOldInfoValues] = useState({});
 	const {profileId, token} = useSelector(state => state);
@@ -44,6 +61,14 @@ const ProfileInfo = () => {
 			interests: "#geek"
 		}
 	);
+	const {location} = useGeolocation();
+	
+	const autoLocation = () => {
+		if (location.googleAddress) {
+			setInfoValues({...infoValues, location: {description: location.googleAddress}})
+		}
+	}
+	
 	const modifyInfo = () => {
 		setOldInfoValues(infoValues);
 		setModifyMode(true);
@@ -56,32 +81,24 @@ const ProfileInfo = () => {
 		setModifyMode(false);
 	}
 	
-	// useEffect( async () => {
-	// 	const data = await request(`https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJWTi8xgGyEmsRgK0yFmh9AQU&key=AIzaSyA3aRZfbMCWSDpf7P7qBlIIZl1o78YpwAo`);
-	// 	console.log("testData", data);
-	// }, [infoValues.country]);
-	
 	const changeHandler = async (event) => setInfoValues({...infoValues, [event.target.name]: event.target.value})
-	
-	console.log("testRender");
 	
 	return (
 		<ProfileInfoContainer>
 			<UserTitle>
 				<Typography variant="h5" m={1}>Vladislav Portnov</Typography>
-				<Typography>online</Typography>
 			</UserTitle>
 			
 			<Divider sx={{mb: "10px"}}/>
 			
-			<Stack sx={{width: "20%"}}>
+			<Stack sx={{width: "150px"}}>
 				{owner && !modifyMode ? <Button onClick={modifyInfo} size={"small"}>Change info</Button> : <></>}
 				{modifyMode ? <Button onClick={cancelModifying} size={"small"}>Cancel modifying</Button> : <></>}
 				{modifyMode ? <Button onClick={saveChanges} size={"small"}>Save changes</Button> : <></>}
 			</Stack>
 			
-			<Stack spacing={1}>
-				<Stack justifyContent="space-between" direction="row">
+			<Stack>
+				<InfoField>
 					<Typography>Gender</Typography>
 					{modifyMode
 						? (<Select value={infoValues.gender} name="gender" onChange={changeHandler} size="small">
@@ -89,19 +106,19 @@ const ProfileInfo = () => {
 								<MenuItem value="Female">Female</MenuItem>
 								<MenuItem value="Both">Both</MenuItem>
 							</Select>)
-						: <Typography sx={{width: "300px", textAlign: "right"}}>{infoValues.gender}</Typography>
+						: <InfoValue>{infoValues.gender}</InfoValue>
 					}
-				</Stack>
+				</InfoField>
 				
-				<Stack justifyContent="space-between" direction="row">
+				<InfoField>
 					<Typography>Age</Typography>
 					{modifyMode
-						? <TextField type="number" value={infoValues.age} name="age" onChange={changeHandler} size="small" sx={{width: "100px"}}/>
-						: <Typography sx={{width: "300px", textAlign: "right"}}>{infoValues.age}</Typography>
+						? <TextField type="number" value={infoValues.age} name="age" onChange={changeHandler} size="small" inputProps={{ style: {textAlign: 'center'} }} sx={{width: "100%", maxWidth: "250px"}}/> // I haven't found another way to center input text
+						: <InfoValue>{infoValues.age}</InfoValue>
 					}
-				</Stack>
+				</InfoField>
 				
-				<Stack justifyContent="space-between" direction="row">
+				<InfoField>
 					<Typography>Sexual preferences</Typography>
 					{modifyMode
 						? (<Select value={infoValues.sexPref} name="sexPref" onChange={changeHandler} size="small">
@@ -109,11 +126,11 @@ const ProfileInfo = () => {
 								<MenuItem value="Female">Female</MenuItem>
 								<MenuItem value="Both">Both</MenuItem>
 							</Select>)
-						: <Typography sx={{width: "300px", textAlign: "right"}}>{infoValues.sexPref}</Typography>
+						: <InfoValue>{infoValues.sexPref}</InfoValue>
 					}
-				</Stack>
+				</InfoField>
 				
-				<Stack justifyContent="space-between" direction="row">
+				<InfoField>
 					<Typography>Biography</Typography>
 					{modifyMode
 						? <TextField
@@ -124,13 +141,13 @@ const ProfileInfo = () => {
 							value={infoValues.biography}
 							onChange={changeHandler}
 							variant="filled"
-							sx={{width: "300px"}}
+							sx={{width: "100%", maxWidth: "300px"}}
 						/>
-						: <Typography sx={{width: "300px", textAlign: "right"}}>{infoValues.biography}</Typography>
+						: <InfoValue>{infoValues.biography}</InfoValue>
 					}
-				</Stack>
+				</InfoField>
 				
-				<Stack justifyContent="space-between" direction="row">
+				<InfoField>
 					<Typography>Interests</Typography>
 					{modifyMode
 						? <TextField
@@ -141,19 +158,22 @@ const ProfileInfo = () => {
 							value={infoValues.interests}
 							onChange={changeHandler}
 							variant="filled"
-							sx={{width: "300px"}}
+							sx={{width: "100%", maxWidth: "300px"}}
 						/>
-						: <Typography sx={{width: "300px", textAlign: "right"}}>{infoValues.interests}</Typography>
+						: <InfoValue>{infoValues.interests}</InfoValue>
 					}
-				</Stack>
+				</InfoField>
 				
-				<Stack justifyContent="space-between" direction="row">
+				<InfoField>
 					<Typography>Location</Typography>
 					{modifyMode
-						? <AutoComplete value={infoValues.location} name="location" onChange={changeHandler} size="small" sx={{width: "300px"}}/>
-						: <Typography sx={{width: "300px", textAlign: "right"}}>{infoValues.location}</Typography>
+						? <AutoComplete value={infoValues.location} size="small" name="location" onChange={changeHandler} sx={{width: "100%", maxWidth: "300px"}}/>
+						: <Box sx={{display: "flex", flexDirection: "column"}}>
+							<InfoValue>{infoValues.location.description}</InfoValue>
+							{owner && location.googleAddress && <Button onClick={autoLocation}>Autolocation</Button>}
+						</Box>
 					}
-				</Stack>
+				</InfoField>
 			</Stack>
 			
 			<Divider sx={{m: "20px 0 10px 0"}}>

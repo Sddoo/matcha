@@ -1,72 +1,97 @@
 import React from 'react';
 import { styled } from "@mui/system";
 import {Image} from '../components/UI/UI'
+import { Typography } from "@mui/material";
 
-const StyledUserProfilePreview = styled("div")`
-	display: grid;
-	margin: 10px 0;
-	grid-template-rows: 20px 1fr;
-	grid-template-columns: 200px 1fr;
-	grid-gap: 10px;
-	grid-template-areas:
+const StyledUserProfilePreview = styled("div")(({theme}) => ({
+	display: "grid",
+	margin: "10px 0",
+	gridTemplateRows: "20px 1fr",
+	gridTemplateColumns: "200px 1fr",
+	gridGap: "10px",
+	gridTemplateAreas:`
 		"image name"
-		"image info";
-`
+		"image info"
+	`,
+	
+	[theme.breakpoints.down('sm')]: {
+		gridTemplateColumns: "100px 1fr",
+	},
+}));
 
-const UserProfilePreviewImage = styled("div")`
+const UserImage = styled("div")`
 	grid-area: image;
 	display: flex;
 	align-items: center;
 `
 
-const UserProfilePreviewName = styled("div")`
+const Name = styled("div")`
 	grid-area: name;
 	text-align: center;
 `
 
-const UserProfilePreviewInfo = styled("div")`
+const Info = styled("div")`
 	grid-area: info;
 	display: flex;
 	justify-content: space-around;
 	flex-wrap: wrap;
 `
 
-const UserProfilePreviewInfoField = styled("div")`
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	flex: 0 0 33%;
-	justify-content: flex-start;
-	text-align: center;
-`
+const InfoField = styled("div")(({theme}) => ({
+	display: "flex",
+	flexDirection: "column",
+	flexWrap: "wrap",
+	flex: "0 0 33%",
+	justifyContent: "flex-start",
+	textAlign: "center",
+	
+	[theme.breakpoints.down('sm')]: {
+		display: "none",
+	},
+}))
+
+const Location = styled("div")(({theme}) => ({
+	display: "none",
+	textAlign: "center",
+	marginTop: "10px",
+	
+	[theme.breakpoints.down('sm')]: {
+		display: "block",
+	},
+}))
 
 const UserProfilePreview = ({userInfo}) => {
 	return (
 		<StyledUserProfilePreview>
-			<UserProfilePreviewImage>
+			<UserImage>
 				<Image src={userInfo.image}/>
-			</UserProfilePreviewImage>
-			<UserProfilePreviewName>
-				{userInfo.name}
-			</UserProfilePreviewName>
-			<UserProfilePreviewInfo>
-				<UserProfilePreviewInfoField>
-					<div>Age</div>
-					<div>{userInfo.age}</div>
-				</UserProfilePreviewInfoField>
-				<UserProfilePreviewInfoField>
-					<div>Fame rating</div>
-					<div>{userInfo.fameRating}</div>
-				</UserProfilePreviewInfoField>
-				<UserProfilePreviewInfoField>
-					<div>Location</div>
-					<div>{userInfo.location}</div>
-				</UserProfilePreviewInfoField>
-				<UserProfilePreviewInfoField>
-					<div>Interests</div>
-					<div>{userInfo.interests}</div>
-				</UserProfilePreviewInfoField>
-			</UserProfilePreviewInfo>
+			</UserImage>
+			<Name>
+				<Typography>{userInfo.name}</Typography>
+			</Name>
+			<Info>
+				<InfoField>
+					<Typography>Age</Typography>
+					<Typography>{userInfo.age}</Typography>
+				</InfoField>
+				<InfoField>
+					<Typography>Fame rating</Typography>
+					<Typography>{userInfo.fameRating}</Typography>
+				</InfoField>
+				<InfoField>
+					<Typography>Location</Typography>
+					<Typography>{userInfo.location}</Typography>
+				</InfoField>
+				<InfoField>
+					<Typography>Interests</Typography>
+					<Typography>{userInfo.interests}</Typography>
+				</InfoField>
+				
+				<Location>
+					<Typography>Location</Typography>
+					<Typography>{userInfo.location}</Typography>
+				</Location>
+			</Info>
 		</StyledUserProfilePreview>
 	);
 };
