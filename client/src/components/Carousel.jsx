@@ -60,11 +60,12 @@ const Carousel = ({usersComps}) => {
 	step - хранит значение, на которое нужно сдвинуть контент вперед или назад
 	Eсли конец карусели меньше defaultState, то мы делаем шаг difference
 	*/
+	
 	const moveCarousel = (direction) => {
 		let step;
 		let res;
 		let difference;
-		const defaultStep = 500;
+		const defaultStep = window.innerWidth < 600 ? 150 : 500;
 		const carouselWrapWidth = carouselWrapRef.current.getBoundingClientRect().width;
 		const carouselContentWidth = carouselContentRef.current.getBoundingClientRect().width;
 		const left = parseInt(carouselContentRef.current.style.left) || 0;

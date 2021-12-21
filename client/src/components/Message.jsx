@@ -17,6 +17,7 @@ const MessageBox = styled(Box)`
 const MessageImage = styled(CardMedia)`
 	grid-area: image;
 	object-fit: cover;
+	user-select: none;
 	height: ${props => props.messageType === "preview" ? "" : "80px"};
 	width: ${props => props.messageType === "preview" ? "" : "80px"};
 `

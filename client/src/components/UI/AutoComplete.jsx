@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import parse from 'autosuggest-highlight/parse';
 import throttle from 'lodash/throttle';
-import loadScript from "../utils/loadScript";
+import loadScript from "../../utils/loadScript";
 
 const autocompleteService = { current: null };
 

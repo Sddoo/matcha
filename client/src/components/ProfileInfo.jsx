@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Button, Stack, Typography, Select, MenuItem, TextField, Divider, Box } from "@mui/material";
@@ -6,7 +6,7 @@ import { styled } from "@mui/system";
 import UsersCarousel from "./UsersCarousel";
 import useHttp from "../hooks/useHttp";
 import testImage from "../test.jpg"
-import AutoComplete from "../components/AutoComplete";
+import AutoComplete from "./UI/AutoComplete";
 import useGeolocation from "../hooks/useGeolocation";
 
 const ProfileInfoContainer = styled("div")(({theme}) => ({

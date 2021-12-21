@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import Field from '../components/Field';
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Stack, Typography, Button, TextField, Divider, Grid, Box } from "@mui/material";
@@ -15,15 +14,6 @@ const StyledSettingsPage = styled(Box)(({theme}) => ({
 	height: "auto",
 	padding: "30px",
 }));
-
-const StyledField = styled(Field)`
-	width: 60%;
-	margin: 30px auto;
-	
-	& > * {
-		flex: 0 0 33%;
-	}
-`
 
 const StyledSettingsContainer = styled(Stack)`
 `

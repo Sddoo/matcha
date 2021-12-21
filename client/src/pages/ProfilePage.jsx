@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, Redirect, useParams } from "react-router-dom";
-import {Image, LinearProgressWithLabel} from "../components/UI/UI";
+import LinearProgressWithLabel from "../components/UI/LinearProgressWithLabel";
+import Image from "../components/UI/Image";
 import testImage from "../test.jpg"
 import useHttp from "../hooks/useHttp";
 import ProfileInfo from "../components/ProfileInfo";

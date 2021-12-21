@@ -1,7 +1,5 @@
 import React from 'react';
-import styled from "styled-components"
 import { Box, LinearProgress, Typography } from "@mui/material";
-
 
 const LinearProgressWithLabel = ({value}) => {
 	return (

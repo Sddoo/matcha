@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from "@mui/system";
-import {Image} from '../components/UI/UI'
 import { Typography } from "@mui/material";
+import Image from "./UI/Image";
 
 const StyledUserProfilePreview = styled("div")(({theme}) => ({
 	display: "grid",

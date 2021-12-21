@@ -36,9 +36,9 @@ const Page = styled(Paper)(({theme}) => ({
 	gridTemplateAreas:`
 		"header"
 		"main-content"
-		"footer"
 	`,
-	gridTemplateRows: "75px 1fr 200px"
+	gridTemplateRows: "75px 1fr",
+	gridAutoRows: "200px"
 }));
 
 function App() {

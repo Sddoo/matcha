@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { styled } from "@mui/system";
-import Gap from "../components/Gap";
-import Field from "../components/Field";
+import Gap from "../components/UI/Gap";
 import UserProfilePreview from "../components/UserProfilePreview";
 import testImage from "../testImage";
 import { useSelector } from "react-redux";
@@ -61,7 +60,10 @@ const AdvancedRequest = styled("div")(({theme}) => ({
 	}
 }));
 
-const RequestField = styled(Field)(({theme}) => ({
+const RequestField = styled(Box)(({theme}) => ({
+	display: "flex",
+	justifyContent: "space-between",
+	flexWrap: "wrap",
 	flexDirection: "column",
 	textAlign: "center",
 	flexBasis: "30%",
@@ -157,10 +159,10 @@ const BrowsingPage = () => {
 			
 			<Response>
 				{testUserProfilePreviewArr.map((elem, i) => (
-					<>
-						<UserProfilePreview key={i} userInfo={elem}/>
+					<React.Fragment key={i}>
+						<UserProfilePreview userInfo={elem}/>
 						<Divider sx={{m: "10px 0 10px 0"}} />
-					</>
+					</React.Fragment>
 				))}
 			</Response>
 			
@@ -188,7 +190,9 @@ const BrowsingPage = () => {
 				</StyledRadioGroup>
 				
 				<Button>Sort!</Button>
+				
 			</StyledFormControl>
+			
 		</StyledBrowsingPage>
 	);
 };

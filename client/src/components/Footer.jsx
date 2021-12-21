@@ -4,6 +4,7 @@ import {
 	Box
 } from "@mui/material";
 import styled from "styled-components";
+import { Switch, Route } from "react-router-dom";
 
 const StyledBox = styled(Box)`
 	margin-top: 10px;
@@ -11,11 +12,17 @@ const StyledBox = styled(Box)`
 
 const Footer = () => {
 	return (
-		<StyledBox sx={{backgroundColor: "primary.main", color: "secondary.main"}}>
-			<Container maxWidth="xs">
-			
-			</Container>
-		</StyledBox>
+		<Switch>
+			<Route path="/chat">
+				<></>
+			</Route>
+			<Route path="/">
+				<StyledBox sx={{backgroundColor: "primary.main", color: "secondary.main"}}>
+					<Container maxWidth="xs">
+					</Container>
+				</StyledBox>
+			</Route>
+		</Switch>
 	);
 };
 
